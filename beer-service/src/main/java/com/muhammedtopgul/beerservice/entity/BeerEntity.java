@@ -16,13 +16,13 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.UUID;
 
+@Entity
+@Table(name = "t_beer")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-@Table(name = "t_beer")
 public class BeerEntity {
 
     @Id
