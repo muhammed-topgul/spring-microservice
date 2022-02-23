@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -30,7 +29,7 @@ public class BeerServiceImpl implements BeerService {
     private final BeerMapper beerMapper;
 
     @Override
-    public BeerPagedList findAll(String beerName, BeerStyle beerStyle, PageRequest pageRequest) {
+    public BeerPagedList findAll(String beerName, BeerStyle beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand) {
         BeerPagedList beerPagedList;
         Page<BeerEntity> beerPage;
 
@@ -47,7 +46,7 @@ public class BeerServiceImpl implements BeerService {
         beerPagedList = new BeerPagedList(
                 beerPage.getContent()
                         .stream()
-                        .map(beerMapper::toDto)
+                        .map(beerEntity -> this.toDtoIsShowInventory(beerEntity, showInventoryOnHand))
                         .collect(Collectors.toList()),
                 PageRequest.of(
                         beerPage.getPageable().getPageNumber(),
@@ -59,9 +58,16 @@ public class BeerServiceImpl implements BeerService {
         return beerPagedList;
     }
 
+    private BeerDto toDtoIsShowInventory(BeerEntity beerEntity, Boolean showInventoryOnHand) {
+        if (showInventoryOnHand == null || !showInventoryOnHand)
+            return beerMapper.toDto(beerEntity);
+        else
+            return beerMapper.toDtoWithInventoryOnHand(beerEntity);
+    }
+
     @Override
-    public BeerDto findById(UUID beerId) {
-        return beerMapper.toDto(beerRepository.findById(beerId).orElseThrow(NotFoundException::new));
+    public BeerDto findById(UUID beerId, Boolean showInventoryOnHand) {
+        return this.toDtoIsShowInventory(beerRepository.findById(beerId).orElseThrow(NotFoundException::new), showInventoryOnHand);
     }
 
     @Override

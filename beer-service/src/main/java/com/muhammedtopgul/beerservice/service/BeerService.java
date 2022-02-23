@@ -14,9 +14,9 @@ import java.util.UUID;
 
 public interface BeerService {
 
-    BeerPagedList findAll(String beerName, BeerStyle beerStyle, PageRequest pageRequest);
+    BeerPagedList findAll(String beerName, BeerStyle beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand);
 
-    BeerDto findById(UUID beerId);
+    BeerDto findById(UUID beerId, Boolean showInventoryOnHand);
 
     BeerDto save(BeerDto beerDto);
 

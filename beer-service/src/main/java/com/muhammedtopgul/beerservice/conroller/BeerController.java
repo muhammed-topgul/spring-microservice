@@ -32,19 +32,20 @@ public class BeerController {
     public ResponseEntity<BeerPagedList> findAll(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
                                                  @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                                  @RequestParam(value = "beerName", required = false) String beerName,
-                                                 @RequestParam(value = "beerStyle", required = false) BeerStyle beerStyle) {
+                                                 @RequestParam(value = "beerStyle", required = false) BeerStyle beerStyle,
+                                                 @RequestParam(value = "showInventoryOnHand", required = false) Boolean showInventoryOnHand) {
 
         pageNumber = (pageNumber == null || pageNumber < 0) ? DEFAULT_PAGE_NUMBER : pageNumber;
         pageSize = (pageSize == null || pageSize < 1) ? DEFAULT_PAGE_SIZE : pageSize;
 
-        BeerPagedList pagedList = beerService.findAll(beerName, beerStyle, PageRequest.of(pageNumber, pageSize));
+        BeerPagedList pagedList = beerService.findAll(beerName, beerStyle, PageRequest.of(pageNumber, pageSize), showInventoryOnHand);
 
         return new ResponseEntity<>(pagedList, HttpStatus.OK);
     }
 
     @GetMapping("/{beerId}")
-    public ResponseEntity<BeerDto> findById(@PathVariable("beerId") UUID beerId) {
-        return new ResponseEntity<>(beerService.findById(beerId), HttpStatus.OK);
+    public ResponseEntity<BeerDto> findById(@PathVariable("beerId") UUID beerId, @RequestParam(value = "showInventoryOnHand", required = false) Boolean showInventoryOnHand) {
+        return new ResponseEntity<>(beerService.findById(beerId, showInventoryOnHand), HttpStatus.OK);
     }
 
     @PostMapping

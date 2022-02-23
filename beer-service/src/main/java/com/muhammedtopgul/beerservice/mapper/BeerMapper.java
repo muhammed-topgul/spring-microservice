@@ -2,6 +2,7 @@ package com.muhammedtopgul.beerservice.mapper;
 
 import com.muhammedtopgul.beerservice.dto.BeerDto;
 import com.muhammedtopgul.beerservice.entity.BeerEntity;
+import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 
 /**
@@ -10,7 +11,10 @@ import org.mapstruct.Mapper;
  */
 
 @Mapper(uses = {DateMapper.class})
+@DecoratedWith(BeerMapperDecorator.class)
 public interface BeerMapper {
+
+    BeerDto toDtoWithInventoryOnHand(BeerEntity entity);
 
     BeerDto toDto(BeerEntity entity);
 
