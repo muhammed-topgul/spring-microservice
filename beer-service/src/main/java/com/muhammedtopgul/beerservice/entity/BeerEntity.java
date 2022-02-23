@@ -35,9 +35,9 @@ public class BeerEntity {
     @Version
     private Long version;
 
-    private String name;
+    private String beerName;
 
-    private String style;
+    private String beerStyle;
 
     @Column(unique = true)
     private Long upc;

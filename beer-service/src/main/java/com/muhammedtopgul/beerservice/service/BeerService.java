@@ -1,6 +1,9 @@
 package com.muhammedtopgul.beerservice.service;
 
 import com.muhammedtopgul.beerservice.dto.BeerDto;
+import com.muhammedtopgul.beerservice.enumeration.BeerStyle;
+import com.muhammedtopgul.beerservice.pageable.BeerPagedList;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.UUID;
 
@@ -11,9 +14,12 @@ import java.util.UUID;
 
 public interface BeerService {
 
+    BeerPagedList findAll(String beerName, BeerStyle beerStyle, PageRequest pageRequest);
+
     BeerDto findById(UUID beerId);
 
     BeerDto save(BeerDto beerDto);
 
     BeerDto update(UUID beerId, BeerDto beerDto);
+
 }

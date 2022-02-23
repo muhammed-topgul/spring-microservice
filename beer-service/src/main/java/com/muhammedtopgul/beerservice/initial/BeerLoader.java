@@ -27,8 +27,8 @@ public class BeerLoader implements CommandLineRunner {
         if (beerRepository.count() == 0) {
             beerRepository.save(
                     BeerEntity.builder()
-                            .name(BeerName.BUD_LIGHT.getName())
-                            .style(BeerStyle.IPA.toString())
+                            .beerName(BeerName.BUD_LIGHT.getName())
+                            .beerStyle(BeerStyle.IPA.toString())
                             .minOnHand(12)
                             .quantityToBrew(200)
                             .upc(UpcGenerator.generateUpc())
@@ -37,8 +37,8 @@ public class BeerLoader implements CommandLineRunner {
 
             beerRepository.save(
                     BeerEntity.builder()
-                            .name(BeerName.HARBIN.getName())
-                            .style(BeerStyle.PALE_ALE.toString())
+                            .beerName(BeerName.HARBIN.getName())
+                            .beerStyle(BeerStyle.PALE_ALE.toString())
                             .minOnHand(12)
                             .quantityToBrew(200)
                             .upc(UpcGenerator.generateUpc())

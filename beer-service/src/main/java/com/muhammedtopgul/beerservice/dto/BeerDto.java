@@ -6,10 +6,8 @@ package com.muhammedtopgul.beerservice.dto;
  */
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.muhammedtopgul.beerservice.enumeration.BeerStyle;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
@@ -30,11 +28,11 @@ public class BeerDto {
     @Null
     private Integer version;
 
-    @NotBlank
-    private String name;
+    @NotNull
+    private String beerName;
 
     @NotNull
-    private BeerStyle style;
+    private String beerStyle;
 
     @NotNull
     private Long upc;

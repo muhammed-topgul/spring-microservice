@@ -1,6 +1,8 @@
 package com.muhammedtopgul.beerservice.repository;
 
 import com.muhammedtopgul.beerservice.entity.BeerEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +15,10 @@ import java.util.UUID;
 
 @Repository
 public interface BeerRepository extends PagingAndSortingRepository<BeerEntity, UUID> {
+
+    Page<BeerEntity> findAllByBeerNameAndBeerStyle(String name, String style, PageRequest pageRequest);
+
+    Page<BeerEntity> findAllByBeerName(String name, PageRequest pageRequest);
+
+    Page<BeerEntity> findAllByBeerStyle(String style, PageRequest pageRequest);
 }
