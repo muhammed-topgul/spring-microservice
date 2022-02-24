@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
  */
 
 @Configuration
-public class AppConfig {
+public class BeanConfig {
 
     @Bean
     public RestTemplate getRestTemplate() {

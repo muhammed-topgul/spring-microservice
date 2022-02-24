@@ -8,6 +8,8 @@ import com.muhammedtopgul.beerservice.mapper.BeerMapper;
 import com.muhammedtopgul.beerservice.pageable.BeerPagedList;
 import com.muhammedtopgul.beerservice.repository.BeerRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -21,15 +23,19 @@ import java.util.stream.Collectors;
  * @since 22.02.2022 12:30
  */
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class BeerServiceImpl implements BeerService {
 
     private final BeerRepository beerRepository;
     private final BeerMapper beerMapper;
 
+    @Cacheable(cacheNames = "beerListCache", condition = "#showInventoryOnHand == false")
     @Override
     public BeerPagedList findAll(String beerName, BeerStyle beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand) {
+        log.debug("BeerService.findAll() called...");
+
         BeerPagedList beerPagedList;
         Page<BeerEntity> beerPage;
 
@@ -65,8 +71,10 @@ public class BeerServiceImpl implements BeerService {
             return beerMapper.toDtoWithInventoryOnHand(beerEntity);
     }
 
+    @Cacheable(cacheNames = "beerCache", key = "#beerId", condition = "#showInventoryOnHand == false")
     @Override
     public BeerDto findById(UUID beerId, Boolean showInventoryOnHand) {
+        log.debug("BeerService.findById() called...");
         return this.toDtoIsShowInventory(beerRepository.findById(beerId).orElseThrow(NotFoundException::new), showInventoryOnHand);
     }
 
