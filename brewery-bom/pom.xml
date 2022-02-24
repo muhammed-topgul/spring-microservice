@@ -227,7 +227,7 @@
                                     <version>[3.6.0,)</version>
                                 </requireMavenVersion>
                                 <requireReleaseDeps>
-                                    <onlyWhemRelease>true</onlyWhemRelease>
+                                    <onlyWhenRelease>true</onlyWhenRelease>
                                     <message>Release builds must not have on dependencies</message>
                                 </requireReleaseDeps>
                             </rules>
