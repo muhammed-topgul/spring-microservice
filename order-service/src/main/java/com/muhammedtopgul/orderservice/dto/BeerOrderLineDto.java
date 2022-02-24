@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -22,17 +23,29 @@ public class BeerOrderLineDto extends BaseItem {
     }
 
     @Builder
-    public BeerOrderLineDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
-                            String upc, String beerName, UUID beerId, Integer orderQuantity) {
+    public BeerOrderLineDto(UUID id,
+                            Integer version,
+                            OffsetDateTime createdDate,
+                            OffsetDateTime lastModifiedDate,
+                            UUID beerId,
+                            String beerName,
+                            String beerStyle,
+                            String upc,
+                            Integer orderQuantity,
+                            BigDecimal price) {
         super(id, version, createdDate, lastModifiedDate);
-        this.upc = upc;
-        this.beerName = beerName;
         this.beerId = beerId;
+        this.beerName = beerName;
+        this.beerStyle = beerStyle;
+        this.upc = upc;
         this.orderQuantity = orderQuantity;
+        this.price = price;
     }
 
     private String upc;
     private String beerName;
+    private String beerStyle;
     private UUID beerId;
     private Integer orderQuantity = 0;
+    private BigDecimal price;
 }

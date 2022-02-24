@@ -1,4 +1,4 @@
-package com.muhammedtopgul.orderservice.service;
+package com.muhammedtopgul.orderservice.service.scheduled;
 
 import com.muhammedtopgul.orderservice.dto.BeerOrderDto;
 import com.muhammedtopgul.orderservice.dto.BeerOrderLineDto;
@@ -6,6 +6,7 @@ import com.muhammedtopgul.orderservice.entity.CustomerEntity;
 import com.muhammedtopgul.orderservice.initial.BeerOrderLoader;
 import com.muhammedtopgul.orderservice.repository.BeerOrderRepository;
 import com.muhammedtopgul.orderservice.repository.CustomerRepository;
+import com.muhammedtopgul.orderservice.service.BeerOrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;

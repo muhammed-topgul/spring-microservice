@@ -3,6 +3,7 @@ package com.muhammedtopgul.orderservice.initial;
 import com.muhammedtopgul.orderservice.entity.CustomerEntity;
 import com.muhammedtopgul.orderservice.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class BeerOrderLoader implements CommandLineRunner {
     public static final String TASTING_ROOM = "Tasting Room";
     public static final String BEER_1_UPC = "0631234200036";
@@ -24,16 +26,18 @@ public class BeerOrderLoader implements CommandLineRunner {
     private final CustomerRepository customerRepository;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         loadCustomerData();
     }
 
     private void loadCustomerData() {
         if (customerRepository.count() == 0) {
-            customerRepository.save(CustomerEntity.builder()
+            CustomerEntity savedCustomer = customerRepository.save(CustomerEntity.builder()
                     .customerName(TASTING_ROOM)
                     .apiKey(UUID.randomUUID())
                     .build());
+
+            log.debug("Tasting Room Customer Id: " + savedCustomer.getId().toString());
         }
     }
 }

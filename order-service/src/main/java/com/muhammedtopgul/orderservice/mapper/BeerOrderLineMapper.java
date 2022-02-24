@@ -2,6 +2,7 @@ package com.muhammedtopgul.orderservice.mapper;
 
 import com.muhammedtopgul.orderservice.dto.BeerOrderLineDto;
 import com.muhammedtopgul.orderservice.entity.BeerOrderLineEntity;
+import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 
 /**
@@ -10,6 +11,7 @@ import org.mapstruct.Mapper;
  */
 
 @Mapper(uses = {DateMapper.class})
+@DecoratedWith(BeerOrderLineMapperDecorator.class)
 public interface BeerOrderLineMapper {
 
     BeerOrderLineDto toDto(BeerOrderLineEntity entity);
