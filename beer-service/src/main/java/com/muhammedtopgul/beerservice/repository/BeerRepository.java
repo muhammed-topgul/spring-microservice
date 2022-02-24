@@ -22,5 +22,5 @@ public interface BeerRepository extends PagingAndSortingRepository<BeerEntity, U
 
     Page<BeerEntity> findAllByBeerStyle(String style, PageRequest pageRequest);
 
-    BeerEntity findByUpc(Long upc);
+    BeerEntity findByUpc(String upc);
 }

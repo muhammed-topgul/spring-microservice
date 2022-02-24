@@ -49,7 +49,7 @@ public class BeerController {
     }
 
     @GetMapping("/by-upc/{upc}")
-    public ResponseEntity<BeerDto> findByUpc(@PathVariable("upc") Long upc) {
+    public ResponseEntity<BeerDto> findByUpc(@PathVariable("upc") String upc) {
         return new ResponseEntity<>(beerService.findByUpc(upc), HttpStatus.OK);
     }
 

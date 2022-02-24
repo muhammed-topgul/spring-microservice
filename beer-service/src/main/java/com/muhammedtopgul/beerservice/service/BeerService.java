@@ -22,5 +22,5 @@ public interface BeerService {
 
     BeerDto update(UUID beerId, BeerDto beerDto);
 
-    BeerDto findByUpc(Long upc);
+    BeerDto findByUpc(String upc);
 }

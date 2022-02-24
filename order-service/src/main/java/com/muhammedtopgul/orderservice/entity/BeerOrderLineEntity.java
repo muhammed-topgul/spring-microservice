@@ -26,11 +26,12 @@ public class BeerOrderLineEntity extends BaseEntity {
 
     @Builder
     public BeerOrderLineEntity(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate,
-                         BeerOrderEntity beerOrder, UUID beerId, Integer orderQuantity,
+                         BeerOrderEntity beerOrder, UUID beerId, String upc, Integer orderQuantity,
                          Integer quantityAllocated) {
         super(id, version, createdDate, lastModifiedDate);
         this.beerOrder = beerOrder;
         this.beerId = beerId;
+        this.upc = upc;
         this.orderQuantity = orderQuantity;
         this.quantityAllocated = quantityAllocated;
     }
@@ -39,6 +40,7 @@ public class BeerOrderLineEntity extends BaseEntity {
     private BeerOrderEntity beerOrder;
 
     private UUID beerId;
+    private String upc;
     private Integer orderQuantity = 0;
     private Integer quantityAllocated = 0;
 }

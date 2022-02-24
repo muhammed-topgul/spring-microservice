@@ -97,7 +97,7 @@ public class BeerServiceImpl implements BeerService {
 
     @Cacheable(cacheNames = "beerUpcCache")
     @Override
-    public BeerDto findByUpc(Long upc) {
+    public BeerDto findByUpc(String upc) {
         log.debug("BeerService.findByUpc() called...");
         return beerMapper.toDto(beerRepository.findByUpc(upc));
     }

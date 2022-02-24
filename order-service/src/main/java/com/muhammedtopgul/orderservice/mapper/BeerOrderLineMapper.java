@@ -11,6 +11,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(uses = {DateMapper.class})
 public interface BeerOrderLineMapper {
+
     BeerOrderLineDto toDto(BeerOrderLineEntity entity);
 
     BeerOrderLineEntity toEntity(BeerOrderLineDto dto);

@@ -1,6 +1,7 @@
 package com.muhammedtopgul.orderservice.service;
 
 import com.muhammedtopgul.orderservice.dto.BeerOrderDto;
+import com.muhammedtopgul.orderservice.entity.BeerOrderLineEntity;
 import com.muhammedtopgul.orderservice.pageable.BeerOrderPagedList;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import com.muhammedtopgul.orderservice.entity.CustomerEntity;
@@ -66,7 +67,9 @@ public class BeerOrderServiceImpl implements BeerOrderService {
             beerOrder.setCustomer(customerOptional.get());
             beerOrder.setOrderStatus(OrderStatus.NEW);
 
-            beerOrder.getBeerOrderLines().forEach(line -> line.setBeerOrder(beerOrder));
+            if (beerOrder.getBeerOrderLines() != null) {
+                beerOrder.getBeerOrderLines().forEach(line -> line.setBeerOrder(beerOrder));
+            }
 
             BeerOrderEntity savedBeerOrder = beerOrderRepository.saveAndFlush(beerOrder);
 
