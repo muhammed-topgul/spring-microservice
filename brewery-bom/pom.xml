@@ -14,7 +14,38 @@
     <groupId>com.muhammedtopgul</groupId>
     <artifactId>brewery-bom</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <description>Application BOM (Bill Of Material) to Manage All Dependencies From Common Source</description>
 
     <packaging>pom</packaging>
 
+    <licenses>
+        <license>
+            <name>GNU General Public License v3.0</name>
+            <url>https://www.gnu.org/licenses/gpl.txt</url>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Muhammed Topgul</name>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>muhammed-topgul</id>
+            <name>Muhammed Topgul</name>
+            <email>muhammedtopgul.29@gmail.com</email>
+            <properties>
+                <github>https://github.com/muhammed-topgul</github>
+                <linkedin>https://www.linkedin.com/in/muhammed-topgul-557964185/</linkedin>
+            </properties>
+        </developer>
+    </developers>
+
+    <properties>
+        <java.version>11</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
 </project>
