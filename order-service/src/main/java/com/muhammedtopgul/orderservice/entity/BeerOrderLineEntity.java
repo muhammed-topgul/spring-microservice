@@ -2,7 +2,6 @@ package com.muhammedtopgul.orderservice.entity;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -15,10 +14,9 @@ import java.util.UUID;
  * @since 22.02.2022 13:00
  */
 
+@Entity(name = "t_beer_order_line")
 @Getter
 @Setter
-//@NoArgsConstructor
-@Entity
 public class BeerOrderLineEntity extends BaseEntity {
 
     public BeerOrderLineEntity() {
@@ -26,8 +24,8 @@ public class BeerOrderLineEntity extends BaseEntity {
 
     @Builder
     public BeerOrderLineEntity(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate,
-                         BeerOrderEntity beerOrder, UUID beerId, String upc, Integer orderQuantity,
-                         Integer quantityAllocated) {
+                               BeerOrderEntity beerOrder, UUID beerId, String upc, Integer orderQuantity,
+                               Integer quantityAllocated) {
         super(id, version, createdDate, lastModifiedDate);
         this.beerOrder = beerOrder;
         this.beerId = beerId;

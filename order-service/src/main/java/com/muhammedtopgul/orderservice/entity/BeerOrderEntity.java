@@ -20,9 +20,9 @@ import java.util.UUID;
  * @since 22.02.2022 12:59
  */
 
+@Entity(name = "t_beer_order")
 @Getter
 @Setter
-@Entity
 public class BeerOrderEntity extends BaseEntity {
 
     public BeerOrderEntity() {

@@ -17,15 +17,15 @@ import java.util.UUID;
  * @since 22.02.2022 13:02
  */
 
+@Entity(name = "t_customer")
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
 public class CustomerEntity extends BaseEntity {
 
     @Builder
     public CustomerEntity(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String customerName,
-                    UUID apiKey, Set<BeerOrderEntity> beerOrders) {
+                          UUID apiKey, Set<BeerOrderEntity> beerOrders) {
         super(id, version, createdDate, lastModifiedDate);
         this.customerName = customerName;
         this.apiKey = apiKey;

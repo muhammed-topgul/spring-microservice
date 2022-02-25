@@ -14,15 +14,15 @@ import java.util.UUID;
  * @since 22.02.2022 13:56
  */
 
+@Entity(name = "t_inventory")
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
-public class InventoryEntity extends BaseEntity{
+public class InventoryEntity extends BaseEntity {
 
     @Builder
     public InventoryEntity(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, UUID beerId,
-                         String upc, Integer quantityOnHand) {
+                           String upc, Integer quantityOnHand) {
         super(id, version, createdDate, lastModifiedDate);
         this.beerId = beerId;
         this.upc = upc;
