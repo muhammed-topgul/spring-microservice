@@ -11,8 +11,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <name>application-bom</name>
     <groupId>com.muhammedtopgul</groupId>
-    <artifactId>brewery-bom</artifactId>
+    <artifactId>application-bom</artifactId>
     <version>1.0-SNAPSHOT</version>
     <description>Application BOM (Bill Of Material) to Manage All Dependencies From Common Source</description>
 
