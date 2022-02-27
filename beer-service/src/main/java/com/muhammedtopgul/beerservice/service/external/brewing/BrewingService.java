@@ -1,4 +1,4 @@
-package com.muhammedtopgul.beerservice.service;
+package com.muhammedtopgul.beerservice.service.external.brewing;
 
 import com.muhammedtopgul.beerservice.configuration.JmsConfig;
 import com.muhammedtopgul.beerservice.entity.BeerEntity;
@@ -22,7 +22,7 @@ import java.util.List;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class BrewingService {
+class BrewingService {
 
     private final BeerRepository beerRepository;
     private final InventoryService inventoryService;
