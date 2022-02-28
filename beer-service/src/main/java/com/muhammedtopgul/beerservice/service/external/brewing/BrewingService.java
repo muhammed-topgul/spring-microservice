@@ -36,7 +36,7 @@ class BrewingService {
         beerEntities.forEach(beerEntity -> {
             Integer inventoryQuantityOnHand = inventoryService.getOnHandInventory(beerEntity.getId());
 
-            log.debug("\n\nMin On Hand is : " + beerEntity.getMinOnHand());
+            log.debug("Min On Hand is : " + beerEntity.getMinOnHand());
             log.debug("Inventory is : " + beerEntity.getMinOnHand());
 
             if (beerEntity.getMinOnHand() >= inventoryQuantityOnHand) {
