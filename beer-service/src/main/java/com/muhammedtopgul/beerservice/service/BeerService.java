@@ -1,6 +1,6 @@
 package com.muhammedtopgul.beerservice.service;
 
-import com.muhammedtopgul.beerservice.dto.BeerDto;
+import com.muhammedtopgul.application.common.dto.BeerDto;
 import com.muhammedtopgul.beerservice.enumeration.BeerStyle;
 import com.muhammedtopgul.beerservice.pageable.BeerPagedList;
 import org.springframework.data.domain.PageRequest;

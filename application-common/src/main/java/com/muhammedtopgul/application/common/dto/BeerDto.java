@@ -1,4 +1,4 @@
-package com.muhammedtopgul.beerservice.dto;
+package com.muhammedtopgul.application.common.dto;
 
 /**
  * @author muhammed-topgul

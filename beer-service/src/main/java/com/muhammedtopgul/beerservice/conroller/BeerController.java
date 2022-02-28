@@ -1,6 +1,6 @@
 package com.muhammedtopgul.beerservice.conroller;
 
-import com.muhammedtopgul.beerservice.dto.BeerDto;
+import com.muhammedtopgul.application.common.dto.BeerDto;
 import com.muhammedtopgul.beerservice.enumeration.BeerStyle;
 import com.muhammedtopgul.beerservice.pageable.BeerPagedList;
 import com.muhammedtopgul.beerservice.service.BeerService;

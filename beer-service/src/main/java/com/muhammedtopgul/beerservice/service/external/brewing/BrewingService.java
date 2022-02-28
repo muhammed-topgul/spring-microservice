@@ -1,7 +1,7 @@
 package com.muhammedtopgul.beerservice.service.external.brewing;
 
 import com.muhammedtopgul.beerservice.entity.BeerEntity;
-import com.muhammedtopgul.beerservice.event.BrewBeerEvent;
+import com.muhammedtopgul.application.common.event.BrewBeerEvent;
 import com.muhammedtopgul.beerservice.mapper.BeerMapper;
 import com.muhammedtopgul.beerservice.repository.BeerRepository;
 import com.muhammedtopgul.beerservice.service.external.inventory.InventoryService;

@@ -1,6 +1,6 @@
-package com.muhammedtopgul.beerservice.event;
+package com.muhammedtopgul.application.common.event;
 
-import com.muhammedtopgul.beerservice.dto.BeerDto;
+import com.muhammedtopgul.application.common.dto.BeerDto;
 import lombok.*;
 
 import java.io.Serializable;

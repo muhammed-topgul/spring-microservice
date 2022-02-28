@@ -3,7 +3,7 @@ package com.muhammedtopgul.beerservice.pageable;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.muhammedtopgul.beerservice.dto.BeerDto;
+import com.muhammedtopgul.application.common.dto.BeerDto;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

@@ -1,6 +1,6 @@
 package com.muhammedtopgul.beerservice.mapper;
 
-import com.muhammedtopgul.beerservice.dto.BeerDto;
+import com.muhammedtopgul.application.common.dto.BeerDto;
 import com.muhammedtopgul.beerservice.entity.BeerEntity;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
