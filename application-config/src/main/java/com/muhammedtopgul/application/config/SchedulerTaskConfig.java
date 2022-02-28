@@ -1,6 +1,5 @@
-package com.muhammedtopgul.orderservice.configuration;
+package com.muhammedtopgul.application.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
@@ -9,16 +8,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author muhammed-topgul
- * @since 22.02.2022 13:13
+ * @since 28.02.2022 16:19
  */
 
+@Configuration
 @EnableScheduling
 @EnableAsync
-@Configuration
-public class TaskConfig {
+public class SchedulerTaskConfig {
 
-    @Bean
-    TaskExecutor taskExecutor() {
+    public TaskExecutor taskExecutor() {
         return new SimpleAsyncTaskExecutor();
     }
 }

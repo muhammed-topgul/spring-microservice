@@ -1,4 +1,4 @@
-package com.muhammedtopgul.orderservice.configuration;
+package com.muhammedtopgul.application.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -6,7 +6,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * @author muhammed-topgul
- * @since 24.02.2022 14:13
+ * @since 28.02.2022 16:17
  */
 
 @Configuration

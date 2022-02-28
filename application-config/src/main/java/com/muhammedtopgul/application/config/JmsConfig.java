@@ -1,4 +1,4 @@
-package com.muhammedtopgul.beerservice.configuration;
+package com.muhammedtopgul.application.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
@@ -9,14 +9,11 @@ import org.springframework.jms.support.converter.MessageType;
 
 /**
  * @author muhammed-topgul
- * @since 27.02.2022 01:34
+ * @since 28.02.2022 16:16
  */
 
 @Configuration
 public class JmsConfig {
-
-    // public static final String BREWING_REQUEST_QUEUE = "brewing-request";
-    // public static final String NEW_INVENTORY_QUEUE = "new-inventory";
 
     @Bean
     public MessageConverter messageConverter(ObjectMapper objectMapper) {
