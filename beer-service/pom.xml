@@ -30,6 +30,7 @@
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
         </dependency>
+        <!-- TODO move to parent -->
         <dependency>
             <groupId>com.muhammedtopgul</groupId>
             <artifactId>application-common</artifactId>

@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author muhammed-topgul
@@ -26,6 +27,7 @@ public class BrewBeerListener {
     private final JmsTemplate jmsTemplate;
 
     @JmsListener(destination = JmsConstant.BREWING_REQUEST_QUEUE)
+    @Transactional
     public void listen(BrewBeerEvent event) {
         BeerDto beerDto = event.getBeerDto();
 
@@ -34,7 +36,7 @@ public class BrewBeerListener {
 
         NewInventoryEvent newInventoryEvent = new NewInventoryEvent(beerDto);
 
-        log.debug("Brewed beer " + beerEntity.getMinOnHand() + ", QOH: " + beerDto.getQuantityOnHand());
+        log.debug("\n\nBrewed beer " + beerEntity.getMinOnHand() + ", QOH: " + beerDto.getQuantityOnHand());
 
         jmsTemplate.convertAndSend(JmsConstant.NEW_INVENTORY_QUEUE, newInventoryEvent);
     }

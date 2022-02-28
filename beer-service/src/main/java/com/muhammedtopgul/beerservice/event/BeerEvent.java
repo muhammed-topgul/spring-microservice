@@ -1,10 +1,7 @@
 package com.muhammedtopgul.beerservice.event;
 
 import com.muhammedtopgul.beerservice.dto.BeerDto;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -15,11 +12,12 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BeerEvent implements Serializable {
 
     static final long serialVersionUID = 1448455814255609055L;
 
-    private final BeerDto beerDto;
+    private BeerDto beerDto;
 }
