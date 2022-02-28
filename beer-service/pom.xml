@@ -30,11 +30,5 @@
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
         </dependency>
-        <!-- TODO move to parent -->
-        <dependency>
-            <groupId>com.muhammedtopgul</groupId>
-            <artifactId>application-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 </project>
