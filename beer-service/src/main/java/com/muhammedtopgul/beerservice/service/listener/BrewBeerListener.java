@@ -1,4 +1,4 @@
-package com.muhammedtopgul.beerservice.service.external.brewing;
+package com.muhammedtopgul.beerservice.service.listener;
 
 import com.muhammedtopgul.application.common.dto.BeerDto;
 import com.muhammedtopgul.beerservice.entity.BeerEntity;

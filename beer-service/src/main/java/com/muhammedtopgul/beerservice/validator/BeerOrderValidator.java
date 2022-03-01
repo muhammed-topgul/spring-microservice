@@ -1,4 +1,4 @@
-package com.muhammedtopgul.beerservice.service.external.order;
+package com.muhammedtopgul.beerservice.validator;
 
 import com.muhammedtopgul.application.common.dto.BeerOrderDto;
 import com.muhammedtopgul.beerservice.repository.BeerRepository;

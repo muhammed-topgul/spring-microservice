@@ -1,4 +1,4 @@
-package com.muhammedtopgul.beerservice.service.external.brewing;
+package com.muhammedtopgul.beerservice.service.scheduled;
 
 import com.muhammedtopgul.beerservice.entity.BeerEntity;
 import com.muhammedtopgul.application.common.event.BrewBeerEvent;
