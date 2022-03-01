@@ -1,9 +1,11 @@
 package com.muhammedtopgul.orderservice.service.statemachine;
 
+import com.muhammedtopgul.application.common.constant.statemachine.StateMachineConstants;
 import com.muhammedtopgul.application.common.enumeration.BeerOrderEventEnum;
 import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import com.muhammedtopgul.orderservice.repository.BeerOrderRepository;
+import com.muhammedtopgul.orderservice.configuration.statemachine.BeerOrderStateChangeInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
@@ -24,6 +26,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
 
     private final StateMachineFactory<BeerOrderStatusEnum, BeerOrderEventEnum> stateMachineFactory;
     private final BeerOrderRepository beerOrderRepository;
+    private final BeerOrderStateChangeInterceptor beerOrderStateChangeInterceptor;
 
     @Override
     @Transactional
@@ -37,7 +40,10 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
 
     private void sendBeerOrderEvent(BeerOrderEntity beerOrderEntity, BeerOrderEventEnum eventEnum) {
         StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> stateMachine = this.build(beerOrderEntity);
-        Message<BeerOrderEventEnum> message = MessageBuilder.withPayload(eventEnum).build();
+        Message<BeerOrderEventEnum> message = MessageBuilder.withPayload(eventEnum)
+                .setHeader(StateMachineConstants.ORDER_ID_HEADER, beerOrderEntity.getId().toString())
+                .build();
+
         stateMachine.sendEvent(message);
     }
 
@@ -48,6 +54,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
 
         stateMachine.getStateMachineAccessor()
                 .doWithAllRegions(accessor -> {
+                    accessor.addStateMachineInterceptor(beerOrderStateChangeInterceptor);
                     accessor.resetStateMachine(new DefaultStateMachineContext<>(beerOrderEntity.getOrderStatus(), null, null, null));
                 });
 

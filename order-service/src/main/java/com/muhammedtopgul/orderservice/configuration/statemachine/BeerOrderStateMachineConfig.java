@@ -1,4 +1,4 @@
-package com.muhammedtopgul.orderservice.statemachine;
+package com.muhammedtopgul.orderservice.configuration.statemachine;
 
 import com.muhammedtopgul.application.common.enumeration.BeerOrderEventEnum;
 import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;

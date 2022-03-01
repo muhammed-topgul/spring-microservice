@@ -1,4 +1,4 @@
-package com.muhammedtopgul.application.common.jms;
+package com.muhammedtopgul.application.common.constant.jms;
 
 import lombok.experimental.UtilityClass;
 
@@ -8,7 +8,7 @@ import lombok.experimental.UtilityClass;
  */
 
 @UtilityClass
-public class JmsConstant {
+public class JmsConstants {
 
     public static final String BREWING_REQUEST_QUEUE = "brewing-request-queue";
     public static final String NEW_INVENTORY_QUEUE = "new-inventory-queue";
