@@ -1,6 +1,6 @@
 package com.muhammedtopgul.orderservice.entity;
 
-import com.muhammedtopgul.orderservice.enumeration.BeerOrderStatusEnum;
+import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

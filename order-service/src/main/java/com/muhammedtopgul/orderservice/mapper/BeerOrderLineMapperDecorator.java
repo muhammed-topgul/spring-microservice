@@ -1,7 +1,7 @@
 package com.muhammedtopgul.orderservice.mapper;
 
-import com.muhammedtopgul.orderservice.dto.BeerDto;
-import com.muhammedtopgul.orderservice.dto.BeerOrderLineDto;
+import com.muhammedtopgul.application.common.dto.BeerDto;
+import com.muhammedtopgul.application.common.dto.BeerOrderLineDto;
 import com.muhammedtopgul.orderservice.entity.BeerOrderLineEntity;
 import com.muhammedtopgul.orderservice.service.BeerService;
 import org.springframework.beans.factory.annotation.Autowired;

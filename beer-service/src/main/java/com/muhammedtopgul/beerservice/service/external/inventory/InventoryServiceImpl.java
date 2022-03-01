@@ -1,6 +1,6 @@
 package com.muhammedtopgul.beerservice.service.external.inventory;
 
-import com.muhammedtopgul.beerservice.dto.InventoryDto;
+import com.muhammedtopgul.application.common.dto.InventoryDto;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

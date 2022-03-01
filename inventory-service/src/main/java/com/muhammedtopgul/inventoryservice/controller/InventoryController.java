@@ -1,6 +1,6 @@
 package com.muhammedtopgul.inventoryservice.controller;
 
-import com.muhammedtopgul.inventoryservice.dto.InventoryDto;
+import com.muhammedtopgul.application.common.dto.InventoryDto;
 import com.muhammedtopgul.inventoryservice.mapper.InventoryMapper;
 import com.muhammedtopgul.inventoryservice.repository.InventoryRepository;
 import lombok.RequiredArgsConstructor;

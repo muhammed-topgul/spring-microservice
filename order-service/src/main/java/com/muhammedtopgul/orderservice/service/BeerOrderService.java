@@ -1,6 +1,6 @@
 package com.muhammedtopgul.orderservice.service;
 
-import com.muhammedtopgul.orderservice.dto.BeerOrderDto;
+import com.muhammedtopgul.application.common.dto.BeerOrderDto;
 import com.muhammedtopgul.orderservice.pageable.BeerOrderPagedList;
 import org.springframework.data.domain.Pageable;
 

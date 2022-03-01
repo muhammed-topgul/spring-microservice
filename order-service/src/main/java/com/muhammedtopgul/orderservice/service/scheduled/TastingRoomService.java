@@ -1,7 +1,7 @@
 package com.muhammedtopgul.orderservice.service.scheduled;
 
-import com.muhammedtopgul.orderservice.dto.BeerOrderDto;
-import com.muhammedtopgul.orderservice.dto.BeerOrderLineDto;
+import com.muhammedtopgul.application.common.dto.BeerOrderDto;
+import com.muhammedtopgul.application.common.dto.BeerOrderLineDto;
 import com.muhammedtopgul.orderservice.entity.CustomerEntity;
 import com.muhammedtopgul.orderservice.initial.BeerOrderLoader;
 import com.muhammedtopgul.orderservice.repository.BeerOrderRepository;

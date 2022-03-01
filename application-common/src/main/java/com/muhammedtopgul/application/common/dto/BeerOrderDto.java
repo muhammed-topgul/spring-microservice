@@ -1,6 +1,6 @@
-package com.muhammedtopgul.orderservice.dto;
+package com.muhammedtopgul.application.common.dto;
 
-import com.muhammedtopgul.orderservice.enumeration.BeerOrderStatusEnum;
+import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

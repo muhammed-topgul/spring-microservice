@@ -1,6 +1,6 @@
 package com.muhammedtopgul.inventoryservice.mapper;
 
-import com.muhammedtopgul.inventoryservice.dto.InventoryDto;
+import com.muhammedtopgul.application.common.dto.InventoryDto;
 import com.muhammedtopgul.inventoryservice.entity.InventoryEntity;
 import org.mapstruct.Mapper;
 

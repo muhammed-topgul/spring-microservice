@@ -1,4 +1,4 @@
-package com.muhammedtopgul.orderservice.enumeration;
+package com.muhammedtopgul.application.common.enumeration;
 
 /**
  * @author muhammed-topgul

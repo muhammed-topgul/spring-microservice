@@ -1,7 +1,7 @@
 package com.muhammedtopgul.orderservice.statemachine;
 
-import com.muhammedtopgul.orderservice.enumeration.BeerOrderEventEnum;
-import com.muhammedtopgul.orderservice.enumeration.BeerOrderStatusEnum;
+import com.muhammedtopgul.application.common.enumeration.BeerOrderEventEnum;
+import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.config.EnableStateMachineFactory;

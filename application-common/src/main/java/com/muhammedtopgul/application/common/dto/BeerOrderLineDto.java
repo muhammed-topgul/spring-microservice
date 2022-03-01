@@ -1,4 +1,4 @@
-package com.muhammedtopgul.orderservice.dto;
+package com.muhammedtopgul.application.common.dto;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

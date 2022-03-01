@@ -1,4 +1,4 @@
-package com.muhammedtopgul.beerservice.dto;
+package com.muhammedtopgul.application.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import java.util.UUID;
 
 /**
  * @author muhammed-topgul
- * @since 23.02.2022 16:02
+ * @since 22.02.2022 13:57
  */
 
 @Data
@@ -18,10 +18,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class InventoryDto {
-
     private UUID id;
-    private UUID beerId;
-    private Integer quantityOnHand;
     private OffsetDateTime createdDate;
     private OffsetDateTime lastModifiedDate;
+    private UUID beerId;
+    private Integer quantityOnHand;
 }

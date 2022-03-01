@@ -1,10 +1,10 @@
 package com.muhammedtopgul.orderservice.service;
 
-import com.muhammedtopgul.orderservice.dto.BeerOrderDto;
+import com.muhammedtopgul.application.common.dto.BeerOrderDto;
 import com.muhammedtopgul.orderservice.pageable.BeerOrderPagedList;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import com.muhammedtopgul.orderservice.entity.CustomerEntity;
-import com.muhammedtopgul.orderservice.enumeration.BeerOrderStatusEnum;
+import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
 import com.muhammedtopgul.orderservice.mapper.BeerOrderMapper;
 import com.muhammedtopgul.orderservice.repository.BeerOrderRepository;
 import com.muhammedtopgul.orderservice.repository.CustomerRepository;

@@ -1,6 +1,6 @@
 package com.muhammedtopgul.orderservice.mapper;
 
-import com.muhammedtopgul.orderservice.dto.BeerOrderDto;
+import com.muhammedtopgul.application.common.dto.BeerOrderDto;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

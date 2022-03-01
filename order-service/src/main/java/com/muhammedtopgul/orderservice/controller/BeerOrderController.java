@@ -1,6 +1,6 @@
 package com.muhammedtopgul.orderservice.controller;
 
-import com.muhammedtopgul.orderservice.dto.BeerOrderDto;
+import com.muhammedtopgul.application.common.dto.BeerOrderDto;
 import com.muhammedtopgul.orderservice.pageable.BeerOrderPagedList;
 import com.muhammedtopgul.orderservice.service.BeerOrderService;
 import lombok.RequiredArgsConstructor;

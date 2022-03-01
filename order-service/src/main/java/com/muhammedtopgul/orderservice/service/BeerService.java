@@ -1,6 +1,6 @@
 package com.muhammedtopgul.orderservice.service;
 
-import com.muhammedtopgul.orderservice.dto.BeerDto;
+import com.muhammedtopgul.application.common.dto.BeerDto;
 
 import java.util.Optional;
 import java.util.UUID;

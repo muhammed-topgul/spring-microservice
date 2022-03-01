@@ -1,6 +1,6 @@
 package com.muhammedtopgul.orderservice.service;
 
-import com.muhammedtopgul.orderservice.dto.BeerDto;
+import com.muhammedtopgul.application.common.dto.BeerDto;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
