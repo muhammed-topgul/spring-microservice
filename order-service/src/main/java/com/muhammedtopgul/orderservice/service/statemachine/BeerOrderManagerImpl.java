@@ -5,7 +5,7 @@ import com.muhammedtopgul.application.common.enumeration.BeerOrderEventEnum;
 import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import com.muhammedtopgul.orderservice.repository.BeerOrderRepository;
-import com.muhammedtopgul.orderservice.configuration.statemachine.BeerOrderStateChangeInterceptor;
+import com.muhammedtopgul.orderservice.statemachine.BeerOrderStateChangeInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
