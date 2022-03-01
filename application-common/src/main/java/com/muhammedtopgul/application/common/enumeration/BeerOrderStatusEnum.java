@@ -7,8 +7,10 @@ package com.muhammedtopgul.application.common.enumeration;
 
 public enum BeerOrderStatusEnum {
     NEW,
+    VALIDATION_PENDING,
     VALIDATED,
     VALIDATION_EXCEPTION,
+    ALLOCATION_PENDING,
     ALLOCATED,
     ALLOCATION_EXCEPTION,
     PENDING_INVENTORY,
