@@ -1,4 +1,4 @@
-package com.muhammedtopgul.orderservice.event;
+package com.muhammedtopgul.application.common.event;
 
 import com.muhammedtopgul.application.common.dto.BeerOrderDto;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ValidateOrderRequest {
+public class ValidateOrderRequestEvent {
 
     private BeerOrderDto beerOrderDto;
 }

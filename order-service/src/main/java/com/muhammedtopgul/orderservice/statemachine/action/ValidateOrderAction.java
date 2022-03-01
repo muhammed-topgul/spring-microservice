@@ -5,7 +5,7 @@ import com.muhammedtopgul.application.common.constant.statemachine.StateMachineC
 import com.muhammedtopgul.application.common.enumeration.BeerOrderEventEnum;
 import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
-import com.muhammedtopgul.orderservice.event.ValidateOrderRequest;
+import com.muhammedtopgul.application.common.event.ValidateOrderRequestEvent;
 import com.muhammedtopgul.orderservice.mapper.BeerOrderMapper;
 import com.muhammedtopgul.orderservice.repository.BeerOrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,8 +37,8 @@ public class ValidateOrderAction implements Action<BeerOrderStatusEnum, BeerOrde
         BeerOrderEntity beerOrderEntity = beerOrderRepository.findOneById(UUID.fromString(beerOrderId));
 
         jmsTemplate.convertAndSend(
-                JmsConstants.VALIDATE_ORDER_QUEUE,
-                ValidateOrderRequest.builder()
+                JmsConstants.VALIDATE_ORDER_REQUEST_QUEUE,
+                ValidateOrderRequestEvent.builder()
                         .beerOrderDto(beerOrderMapper.toDto(beerOrderEntity))
                         .build());
 
