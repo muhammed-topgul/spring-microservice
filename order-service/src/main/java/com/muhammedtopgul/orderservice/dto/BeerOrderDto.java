@@ -1,6 +1,6 @@
 package com.muhammedtopgul.orderservice.dto;
 
-import com.muhammedtopgul.orderservice.enumeration.OrderStatus;
+import com.muhammedtopgul.orderservice.enumeration.BeerOrderStatusEnum;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,7 +23,7 @@ public class BeerOrderDto extends BaseItem {
 
     @Builder
     public BeerOrderDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, UUID customerId, List<BeerOrderLineDto> beerOrderLines,
-                        OrderStatus orderStatus, String orderStatusCallbackUrl, String customerRef) {
+                        BeerOrderStatusEnum orderStatus, String orderStatusCallbackUrl, String customerRef) {
         super(id, version, createdDate, lastModifiedDate);
         this.customerId = customerId;
         this.beerOrderLines = beerOrderLines;
@@ -35,6 +35,6 @@ public class BeerOrderDto extends BaseItem {
     private UUID customerId;
     private String customerRef;
     private List<BeerOrderLineDto> beerOrderLines;
-    private OrderStatus orderStatus;
+    private BeerOrderStatusEnum orderStatus;
     private String orderStatusCallbackUrl;
 }

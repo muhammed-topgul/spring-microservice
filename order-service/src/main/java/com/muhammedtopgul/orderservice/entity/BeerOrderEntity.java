@@ -1,6 +1,6 @@
 package com.muhammedtopgul.orderservice.entity;
 
-import com.muhammedtopgul.orderservice.enumeration.OrderStatus;
+import com.muhammedtopgul.orderservice.enumeration.BeerOrderStatusEnum;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +30,7 @@ public class BeerOrderEntity extends BaseEntity {
 
     @Builder
     public BeerOrderEntity(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String customerRef, CustomerEntity customer,
-                           Set<BeerOrderLineEntity> beerOrderLines, OrderStatus orderStatus,
+                           Set<BeerOrderLineEntity> beerOrderLines, BeerOrderStatusEnum orderStatus,
                            String orderStatusCallbackUrl) {
         super(id, version, createdDate, lastModifiedDate);
         this.customerRef = customerRef;
@@ -49,6 +49,6 @@ public class BeerOrderEntity extends BaseEntity {
     @Fetch(FetchMode.JOIN)
     private Set<BeerOrderLineEntity> beerOrderLines;
 
-    private OrderStatus orderStatus = OrderStatus.NEW;
+    private BeerOrderStatusEnum orderStatus = BeerOrderStatusEnum.NEW;
     private String orderStatusCallbackUrl;
 }

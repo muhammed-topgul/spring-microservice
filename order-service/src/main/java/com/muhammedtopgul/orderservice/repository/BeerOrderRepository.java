@@ -2,7 +2,7 @@ package com.muhammedtopgul.orderservice.repository;
 
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import com.muhammedtopgul.orderservice.entity.CustomerEntity;
-import com.muhammedtopgul.orderservice.enumeration.OrderStatus;
+import com.muhammedtopgul.orderservice.enumeration.BeerOrderStatusEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,7 +23,7 @@ public interface BeerOrderRepository  extends JpaRepository<BeerOrderEntity, UUI
 
     Page<BeerOrderEntity> findAllByCustomer(CustomerEntity customerEntity, Pageable pageable);
 
-    List<BeerOrderEntity> findAllByOrderStatus(OrderStatus orderStatusEnum);
+    List<BeerOrderEntity> findAllByOrderStatus(BeerOrderStatusEnum orderStatusEnum);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     BeerOrderEntity findOneById(UUID id);

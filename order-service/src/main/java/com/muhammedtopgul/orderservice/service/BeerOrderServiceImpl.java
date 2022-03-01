@@ -1,11 +1,10 @@
 package com.muhammedtopgul.orderservice.service;
 
 import com.muhammedtopgul.orderservice.dto.BeerOrderDto;
-import com.muhammedtopgul.orderservice.entity.BeerOrderLineEntity;
 import com.muhammedtopgul.orderservice.pageable.BeerOrderPagedList;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import com.muhammedtopgul.orderservice.entity.CustomerEntity;
-import com.muhammedtopgul.orderservice.enumeration.OrderStatus;
+import com.muhammedtopgul.orderservice.enumeration.BeerOrderStatusEnum;
 import com.muhammedtopgul.orderservice.mapper.BeerOrderMapper;
 import com.muhammedtopgul.orderservice.repository.BeerOrderRepository;
 import com.muhammedtopgul.orderservice.repository.CustomerRepository;
@@ -65,7 +64,7 @@ public class BeerOrderServiceImpl implements BeerOrderService {
             BeerOrderEntity beerOrder = beerOrderMapper.toEntity(beerOrderDto);
             beerOrder.setId(null); // should not be set by outside client
             beerOrder.setCustomer(customerOptional.get());
-            beerOrder.setOrderStatus(OrderStatus.NEW);
+            beerOrder.setOrderStatus(BeerOrderStatusEnum.NEW);
 
             if (beerOrder.getBeerOrderLines() != null) {
                 beerOrder.getBeerOrderLines().forEach(line -> line.setBeerOrder(beerOrder));
@@ -92,7 +91,7 @@ public class BeerOrderServiceImpl implements BeerOrderService {
     @Override
     public void pickupOrder(UUID customerId, UUID orderId) {
         BeerOrderEntity beerOrder = getOrder(customerId, orderId);
-        beerOrder.setOrderStatus(OrderStatus.PICKED_UP);
+        beerOrder.setOrderStatus(BeerOrderStatusEnum.PICKED_UP);
 
         beerOrderRepository.save(beerOrder);
     }
