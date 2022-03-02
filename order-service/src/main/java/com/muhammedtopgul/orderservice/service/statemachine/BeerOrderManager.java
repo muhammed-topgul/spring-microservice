@@ -1,5 +1,6 @@
 package com.muhammedtopgul.orderservice.service.statemachine;
 
+import com.muhammedtopgul.application.common.dto.BeerOrderDto;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 
 import java.util.UUID;
@@ -14,4 +15,10 @@ public interface BeerOrderManager {
     BeerOrderEntity newBeerOrderEntity(BeerOrderEntity beerOrderEntity);
 
     void processValidationResult(UUID beerOrderId, Boolean isValid);
+
+    void beerOrderAllocationPassed(BeerOrderDto beerOrderDto);
+
+    void beerOrderAllocationPendingInventory(BeerOrderDto beerOrderDto);
+
+    void beerOrderAllocationFailed(BeerOrderDto beerOrderDto);
 }

@@ -15,4 +15,5 @@ public class JmsConstants {
     public static final String VALIDATE_ORDER_REQUEST_QUEUE = "validate-order-request-queue";
     public static final String VALIDATE_ORDER_RESPONSE_QUEUE = "validate-order-response-queue";
     public static final String ALLOCATE_ORDER_REQUEST_QUEUE = "allocate-order-request-queue";
+    public static final String ALLOCATE_ORDER_RESPONSE_QUEUE = "allocate-order-response-queue";
 }
