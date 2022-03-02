@@ -3,7 +3,7 @@ package com.muhammedtopgul.beerservice.service.listener;
 import com.muhammedtopgul.application.common.constant.jms.JmsConstants;
 import com.muhammedtopgul.application.common.event.ValidateOrderRequestEvent;
 import com.muhammedtopgul.application.common.event.ValidateOrderResultEvent;
-import com.muhammedtopgul.beerservice.validator.BeerOrderValidator;
+import com.muhammedtopgul.beerservice.service.validator.BeerOrderValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;

@@ -1,4 +1,4 @@
-package com.muhammedtopgul.beerservice.validator;
+package com.muhammedtopgul.beerservice.service.validator;
 
 import com.muhammedtopgul.application.common.dto.BeerOrderDto;
 import com.muhammedtopgul.beerservice.repository.BeerRepository;

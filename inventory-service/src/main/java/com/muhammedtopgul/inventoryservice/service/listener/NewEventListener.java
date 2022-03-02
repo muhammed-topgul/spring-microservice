@@ -1,4 +1,4 @@
-package com.muhammedtopgul.inventoryservice.listener;
+package com.muhammedtopgul.inventoryservice.service.listener;
 
 import com.muhammedtopgul.application.common.dto.BeerDto;
 import com.muhammedtopgul.application.common.event.NewInventoryEvent;
