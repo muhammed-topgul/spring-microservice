@@ -45,7 +45,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
 
     @Override
     @Transactional
-    public void processValidationResult(UUID beerOrderId, Boolean isValid) {
+    public void processValidationResult(UUID beerOrderId, boolean isValid) {
         BeerOrderEntity beerOrderEntity = beerOrderService.findById(beerOrderId);
 
         if (isValid) {
@@ -79,13 +79,11 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
     private void updateAllocatedQuantity(BeerOrderDto beerOrderDto) {
         BeerOrderEntity allocatedOrder = beerOrderService.findById(beerOrderDto.getId());
 
-        allocatedOrder.getBeerOrderLines().forEach(beerOrderLineEntity -> {
-            beerOrderDto.getBeerOrderLines().forEach(beerOrderLineDto -> {
-                if (beerOrderLineEntity.getId().equals(beerOrderLineDto.getId())) {
-                    beerOrderLineEntity.setQuantityAllocated(beerOrderLineDto.getQuantityAllocated());
-                }
-            });
-        });
+        allocatedOrder.getBeerOrderLines().forEach(beerOrderLineEntity -> beerOrderDto.getBeerOrderLines().forEach(beerOrderLineDto -> {
+            if (beerOrderLineEntity.getId().equals(beerOrderLineDto.getId())) {
+                beerOrderLineEntity.setQuantityAllocated(beerOrderLineDto.getQuantityAllocated());
+            }
+        }));
 
         beerOrderService.saveAndFlush(allocatedOrder);
     }

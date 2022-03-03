@@ -2,6 +2,7 @@ package com.muhammedtopgul.orderservice.service;
 
 import com.muhammedtopgul.application.common.dto.BeerOrderDto;
 import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
+import com.muhammedtopgul.application.common.exception.ApplicationException;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import com.muhammedtopgul.orderservice.entity.CustomerEntity;
 import com.muhammedtopgul.orderservice.mapper.BeerOrderMapper;
@@ -72,13 +73,10 @@ public class BeerOrderServiceImpl implements BeerOrderService {
 
             log.debug("Saved Beer Order: " + beerOrder.getId());
 
-            // todo impl
-            //  publisher.publishEvent(new NewBeerOrderEvent(savedBeerOrder));
-
             return beerOrderMapper.toDto(savedBeerOrder);
         }
-        //todo add exception type
-        throw new RuntimeException("Customer Not Found");
+
+        throw new ApplicationException(String.format("Customer Not Found: %s", customerId), CustomerEntity.class);
     }
 
     @Override
@@ -93,7 +91,7 @@ public class BeerOrderServiceImpl implements BeerOrderService {
         if (beerOrderOptional.isPresent()) {
             return beerOrderOptional.get();
         }
-        throw new RuntimeException();
+        throw new ApplicationException(String.format("Beer Order Not Found: %s", uuid), BeerOrderEntity.class);
     }
 
     @Override
@@ -124,6 +122,6 @@ public class BeerOrderServiceImpl implements BeerOrderService {
                 return beerOrder;
             }
         }
-        throw new RuntimeException("Beer Order Not Found");
+        throw new ApplicationException(String.format("Customer Not Found: %s", customerId), CustomerEntity.class);
     }
 }

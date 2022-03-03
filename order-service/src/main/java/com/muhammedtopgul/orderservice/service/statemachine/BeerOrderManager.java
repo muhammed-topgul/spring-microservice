@@ -14,7 +14,7 @@ public interface BeerOrderManager {
 
     BeerOrderEntity newBeerOrderEntity(BeerOrderEntity beerOrderEntity);
 
-    void processValidationResult(UUID beerOrderId, Boolean isValid);
+    void processValidationResult(UUID beerOrderId, boolean isValid);
 
     void beerOrderAllocationPassed(BeerOrderDto beerOrderDto);
 

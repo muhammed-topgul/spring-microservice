@@ -30,10 +30,11 @@ public class TastingRoomService {
 
     private final CustomerRepository customerRepository;
     private final BeerOrderService beerOrderService;
-    private final BeerOrderRepository beerOrderRepository;
-    private final List<String> beerUpcs = new ArrayList<>(3);
+    private static final List<String> beerUpcs = new ArrayList<>(3);
 
-    {
+    private final Random random = new Random();
+
+    static {
         beerUpcs.add(BeerOrderLoader.BEER_1_UPC);
         beerUpcs.add(BeerOrderLoader.BEER_2_UPC);
         beerUpcs.add(BeerOrderLoader.BEER_3_UPC);
@@ -57,7 +58,7 @@ public class TastingRoomService {
 
         BeerOrderLineDto beerOrderLine = BeerOrderLineDto.builder()
                 .upc(beerToOrder)
-                .orderQuantity(new Random().nextInt(6)) //todo externalize value to property
+                .orderQuantity(random.nextInt(6))
                 .build();
 
         List<BeerOrderLineDto> beerOrderLineSet = new ArrayList<>();
@@ -69,11 +70,11 @@ public class TastingRoomService {
                 .beerOrderLines(beerOrderLineSet)
                 .build();
 
-        BeerOrderDto savedOrder = beerOrderService.placeOrder(customerEntity.getId(), beerOrder);
+        beerOrderService.placeOrder(customerEntity.getId(), beerOrder);
 
     }
 
     private String getRandomBeerUpc() {
-        return beerUpcs.get(new Random().nextInt(beerUpcs.size() - 0));
+        return beerUpcs.get(random.nextInt(beerUpcs.size()));
     }
 }

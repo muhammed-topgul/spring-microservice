@@ -18,7 +18,7 @@ import java.util.List;
 public class ExceptionAdvice {
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<List> validationErrorHandler(ConstraintViolationException ex) {
+    public ResponseEntity<List<String>> validationErrorHandler(ConstraintViolationException ex) {
         List<String> errorsList = new ArrayList<>(ex.getConstraintViolations().size());
 
         ex.getConstraintViolations().forEach(error -> errorsList.add(error.toString()));

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since 23.02.2022 16:09
  */
 
-// TODO use @AfterMapping in BeerMapper interface
 public abstract class BeerMapperDecorator implements BeerMapper {
 
     @Autowired

@@ -41,9 +41,6 @@ class BrewingService {
 
             if (beerEntity.getMinOnHand() >= inventoryQuantityOnHand) {
                 jmsTemplate.convertAndSend(JmsConstants.BREWING_REQUEST_QUEUE, new BrewBeerEvent(beerMapper.toDto(beerEntity)));
-            } else {
-                // TODO remove else statement after tests complete.
-                jmsTemplate.convertAndSend(JmsConstants.BREWING_REQUEST_QUEUE, new BrewBeerEvent(beerMapper.toDto(beerEntity)));
             }
         });
     }

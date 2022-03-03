@@ -23,7 +23,7 @@ import java.util.UUID;
 @MappedSuperclass
 public abstract class BaseEntity {
 
-    public BaseEntity(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate) {
+    protected BaseEntity(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate) {
         this.id = id;
         this.version = version;
         this.createdDate = createdDate;

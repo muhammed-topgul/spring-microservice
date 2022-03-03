@@ -22,13 +22,13 @@ public class AllocationResultListener {
 
     @JmsListener(destination = JmsConstants.ALLOCATE_ORDER_RESPONSE_QUEUE)
     public void listen(AllocateOrderResultEvent event) {
-        if (!event.getAllocationError() && !event.getPendingInventory()) {
+        if (!event.isAllocationError() && !event.isPendingInventory()) {
             // allocated normally
             beerOrderManager.beerOrderAllocationPassed(event.getBeerOrderDto());
-        } else if (!event.getAllocationError() && event.getPendingInventory()) {
+        } else if (!event.isAllocationError() && event.isPendingInventory()) {
             // pending inventory
             beerOrderManager.beerOrderAllocationPendingInventory(event.getBeerOrderDto());
-        } else if (event.getAllocationError()) {
+        } else if (event.isAllocationError()) {
             // allocation error
             beerOrderManager.beerOrderAllocationFailed(event.getBeerOrderDto());
         }

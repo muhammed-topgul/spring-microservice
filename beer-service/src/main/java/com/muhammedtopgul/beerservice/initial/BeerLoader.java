@@ -33,12 +33,13 @@ public class BeerLoader implements CommandLineRunner {
     }
 
     private void loadBeerObjects() {
+        String finalPrice = "12.95";
         BeerEntity b1 = BeerEntity.builder()
                 .beerName("Mango Bobs")
                 .beerStyle(BeerStyle.IPA.name())
                 .minOnHand(12)
                 .quantityToBrew(200)
-                .price(new BigDecimal("12.95"))
+                .price(new BigDecimal(finalPrice))
                 .upc(BEER_1_UPC)
                 .build();
 
@@ -47,7 +48,7 @@ public class BeerLoader implements CommandLineRunner {
                 .beerStyle(BeerStyle.PALE_ALE.name())
                 .minOnHand(12)
                 .quantityToBrew(200)
-                .price(new BigDecimal("12.95"))
+                .price(new BigDecimal(finalPrice))
                 .upc(BEER_2_UPC)
                 .build();
 
@@ -56,7 +57,7 @@ public class BeerLoader implements CommandLineRunner {
                 .beerStyle(BeerStyle.PALE_ALE.name())
                 .minOnHand(12)
                 .quantityToBrew(200)
-                .price(new BigDecimal("12.95"))
+                .price(new BigDecimal(finalPrice))
                 .upc(BEER_3_UPC)
                 .build();
 
