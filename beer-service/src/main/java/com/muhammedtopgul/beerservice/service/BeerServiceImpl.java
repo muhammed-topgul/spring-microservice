@@ -1,9 +1,9 @@
 package com.muhammedtopgul.beerservice.service;
 
 import com.muhammedtopgul.application.common.dto.BeerDto;
+import com.muhammedtopgul.application.common.exception.ApplicationException;
 import com.muhammedtopgul.beerservice.entity.BeerEntity;
 import com.muhammedtopgul.beerservice.enumeration.BeerStyle;
-import com.muhammedtopgul.beerservice.exception.NotFoundException;
 import com.muhammedtopgul.beerservice.mapper.BeerMapper;
 import com.muhammedtopgul.beerservice.pageable.BeerPagedList;
 import com.muhammedtopgul.beerservice.repository.BeerRepository;
@@ -75,7 +75,8 @@ public class BeerServiceImpl implements BeerService {
     @Override
     public BeerDto findById(UUID beerId, Boolean showInventoryOnHand) {
         log.debug("BeerService.findById() called...");
-        return this.toDtoIsShowInventory(beerRepository.findById(beerId).orElseThrow(NotFoundException::new), showInventoryOnHand);
+        return this.toDtoIsShowInventory(beerRepository.findById(beerId)
+                .orElseThrow(() -> new ApplicationException(String.format("Beer Not Found: %s", beerId), BeerEntity.class)), showInventoryOnHand);
     }
 
     @Override
@@ -85,7 +86,7 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public BeerDto update(UUID beerId, BeerDto beerDto) {
-        BeerEntity beerEntity = beerRepository.findById(beerId).orElseThrow(NotFoundException::new);
+        BeerEntity beerEntity = beerRepository.findById(beerId).orElseThrow(() -> new ApplicationException(String.format("Beer Not Found: %s", beerId), BeerEntity.class));
 
         beerEntity.setBeerName(beerDto.getBeerName());
         beerEntity.setBeerStyle(beerDto.getBeerStyle());
