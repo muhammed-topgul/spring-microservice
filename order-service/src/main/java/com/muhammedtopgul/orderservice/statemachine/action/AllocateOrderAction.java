@@ -7,7 +7,7 @@ import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
 import com.muhammedtopgul.application.common.event.AllocateOrderRequestEvent;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import com.muhammedtopgul.orderservice.mapper.BeerOrderMapper;
-import com.muhammedtopgul.orderservice.repository.BeerOrderRepository;
+import com.muhammedtopgul.orderservice.service.BeerOrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;
@@ -15,7 +15,6 @@ import org.springframework.statemachine.StateContext;
 import org.springframework.statemachine.action.Action;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -28,22 +27,19 @@ import java.util.UUID;
 @Slf4j
 public class AllocateOrderAction implements Action<BeerOrderStatusEnum, BeerOrderEventEnum> {
 
-    private final BeerOrderRepository beerOrderRepository;
+    private final BeerOrderService beerOrderService;
     private final BeerOrderMapper beerOrderMapper;
     private final JmsTemplate jmsTemplate;
 
     @Override
     public void execute(StateContext<BeerOrderStatusEnum, BeerOrderEventEnum> stateContext) {
         String beerOrderId = (String) stateContext.getMessage().getHeaders().get(StateMachineConstants.ORDER_ID_HEADER);
-        Optional<BeerOrderEntity> beerOrderOptional = beerOrderRepository.findById(UUID.fromString(beerOrderId));
+        BeerOrderEntity beerOrderEntity = beerOrderService.findById(UUID.fromString(beerOrderId));
 
-        beerOrderOptional.ifPresentOrElse(beerOrderEntity -> {
-            AllocateOrderRequestEvent requestEvent = new AllocateOrderRequestEvent(beerOrderMapper.toDto(beerOrderEntity));
-            jmsTemplate.convertAndSend(
-                    JmsConstants.ALLOCATE_ORDER_REQUEST_QUEUE,
-                    requestEvent);
-            log.debug(">>> Sent Allocation Request for order id: " + beerOrderId);
-        }, () -> log.debug(">>> Beer Order Not Found!"));
-
+        AllocateOrderRequestEvent requestEvent = new AllocateOrderRequestEvent(beerOrderMapper.toDto(beerOrderEntity));
+        jmsTemplate.convertAndSend(
+                JmsConstants.ALLOCATE_ORDER_REQUEST_QUEUE,
+                requestEvent);
+        log.debug(">>> Sent Allocation Request for order id: " + beerOrderId);
     }
 }

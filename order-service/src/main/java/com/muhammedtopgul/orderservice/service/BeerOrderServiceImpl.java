@@ -1,16 +1,15 @@
 package com.muhammedtopgul.orderservice.service;
 
 import com.muhammedtopgul.application.common.dto.BeerOrderDto;
-import com.muhammedtopgul.orderservice.pageable.BeerOrderPagedList;
+import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import com.muhammedtopgul.orderservice.entity.CustomerEntity;
-import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
 import com.muhammedtopgul.orderservice.mapper.BeerOrderMapper;
+import com.muhammedtopgul.orderservice.pageable.BeerOrderPagedList;
 import com.muhammedtopgul.orderservice.repository.BeerOrderRepository;
 import com.muhammedtopgul.orderservice.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +33,6 @@ public class BeerOrderServiceImpl implements BeerOrderService {
     private final BeerOrderRepository beerOrderRepository;
     private final CustomerRepository customerRepository;
     private final BeerOrderMapper beerOrderMapper;
-    private final ApplicationEventPublisher publisher;
 
     @Override
     public BeerOrderPagedList listOrders(UUID customerId, Pageable pageable) {
@@ -89,6 +87,26 @@ public class BeerOrderServiceImpl implements BeerOrderService {
     }
 
     @Override
+    public BeerOrderEntity findById(UUID uuid) {
+        Optional<BeerOrderEntity> beerOrderOptional = beerOrderRepository.findById(uuid);
+
+        if (beerOrderOptional.isPresent()) {
+            return beerOrderOptional.get();
+        }
+        throw new RuntimeException();
+    }
+
+    @Override
+    public BeerOrderEntity saveAndFlush(BeerOrderEntity beerOrderEntity) {
+        return beerOrderRepository.saveAndFlush(beerOrderEntity);
+    }
+
+    @Override
+    public BeerOrderEntity save(BeerOrderEntity beerOrderEntity) {
+        return beerOrderRepository.save(beerOrderEntity);
+    }
+
+    @Override
     public void pickupOrder(UUID customerId, UUID orderId) {
         BeerOrderEntity beerOrder = getOrder(customerId, orderId);
         beerOrder.setOrderStatus(BeerOrderStatusEnum.PICKED_UP);
@@ -100,18 +118,12 @@ public class BeerOrderServiceImpl implements BeerOrderService {
         Optional<CustomerEntity> customerOptional = customerRepository.findById(customerId);
 
         if (customerOptional.isPresent()) {
-            Optional<BeerOrderEntity> beerOrderOptional = beerOrderRepository.findById(orderId);
-
-            if (beerOrderOptional.isPresent()) {
-                BeerOrderEntity beerOrder = beerOrderOptional.get();
-
-                // fall to exception if customer id's do not match - order not for customer
-                if (beerOrder.getCustomer().getId().equals(customerId)) {
-                    return beerOrder;
-                }
+            BeerOrderEntity beerOrder = this.findById(orderId);
+            // fall to exception if customer id's do not match - order not for customer
+            if (beerOrder.getCustomer().getId().equals(customerId)) {
+                return beerOrder;
             }
-            throw new RuntimeException("Beer Order Not Found");
         }
-        throw new RuntimeException("Customer Not Found");
+        throw new RuntimeException("Beer Order Not Found");
     }
 }

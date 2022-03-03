@@ -4,7 +4,7 @@ import com.muhammedtopgul.application.common.constant.statemachine.StateMachineC
 import com.muhammedtopgul.application.common.enumeration.BeerOrderEventEnum;
 import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
-import com.muhammedtopgul.orderservice.repository.BeerOrderRepository;
+import com.muhammedtopgul.orderservice.service.BeerOrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.Message;
@@ -28,18 +28,18 @@ import java.util.UUID;
 @Slf4j
 public class BeerOrderStateChangeInterceptor extends StateMachineInterceptorAdapter<BeerOrderStatusEnum, BeerOrderEventEnum> {
 
-    private final BeerOrderRepository beerOrderRepository;
+    private final BeerOrderService beerOrderService;
 
     @Override
     @Transactional
     public void preStateChange(State<BeerOrderStatusEnum, BeerOrderEventEnum> state, Message<BeerOrderEventEnum> message, Transition<BeerOrderStatusEnum, BeerOrderEventEnum> transition, StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> stateMachine, StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> rootStateMachine) {
         Optional.ofNullable(message)
-                .flatMap(msg ->Optional.ofNullable((String) msg.getHeaders().getOrDefault(StateMachineConstants.ORDER_ID_HEADER, "")))
-                .ifPresent(orderId ->  {
+                .flatMap(msg -> Optional.ofNullable((String) msg.getHeaders().getOrDefault(StateMachineConstants.ORDER_ID_HEADER, "")))
+                .ifPresent(orderId -> {
                     log.debug("Saving state for order id: " + orderId + " Status: " + state.getId());
-                    BeerOrderEntity beerOrderEntity = beerOrderRepository.findById(UUID.fromString(orderId)).get();
+                    BeerOrderEntity beerOrderEntity = beerOrderService.findById(UUID.fromString(orderId));
                     beerOrderEntity.setOrderStatus(state.getId());
-                    beerOrderRepository.saveAndFlush(beerOrderEntity);
+                    beerOrderService.saveAndFlush(beerOrderEntity);
                 });
     }
 }

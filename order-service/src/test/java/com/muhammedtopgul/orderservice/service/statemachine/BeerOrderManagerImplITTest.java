@@ -5,13 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jenspiegsa.wiremockextension.WireMockExtension;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.muhammedtopgul.application.common.dto.BeerDto;
-import com.muhammedtopgul.application.common.dto.BeerOrderLineDto;
 import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import com.muhammedtopgul.orderservice.entity.BeerOrderLineEntity;
 import com.muhammedtopgul.orderservice.entity.CustomerEntity;
-import com.muhammedtopgul.orderservice.repository.BeerOrderRepository;
 import com.muhammedtopgul.orderservice.repository.CustomerRepository;
+import com.muhammedtopgul.orderservice.service.BeerOrderService;
 import com.muhammedtopgul.orderservice.service.scheduled.TastingRoomService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,7 +49,7 @@ class BeerOrderManagerImplITTest {
     private BeerOrderManager beerOrderManager;
 
     @Autowired
-    private BeerOrderRepository beerOrderRepository;
+    private BeerOrderService beerOrderService;
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -96,17 +95,17 @@ class BeerOrderManagerImplITTest {
         BeerOrderEntity savedBeerOrderEntity = beerOrderManager.newBeerOrderEntity(beerOrderEntity);
 
         await().untilAsserted(() -> {
-            BeerOrderEntity foundOrder = beerOrderRepository.findById(beerOrderEntity.getId()).get();
+            BeerOrderEntity foundOrder = beerOrderService.findById(beerOrderEntity.getId());
             assertEquals(BeerOrderStatusEnum.ALLOCATED, foundOrder.getOrderStatus());
         });
 
         await().untilAsserted(() -> {
-            BeerOrderEntity foundOrder = beerOrderRepository.findById(beerOrderEntity.getId()).get();
+            BeerOrderEntity foundOrder = beerOrderService.findById(beerOrderEntity.getId());
             BeerOrderLineEntity beerOrderLineEntity = foundOrder.getBeerOrderLines().iterator().next();
             assertEquals(beerOrderLineEntity.getOrderQuantity(), beerOrderLineEntity.getQuantityAllocated());
         });
 
-        savedBeerOrderEntity = beerOrderRepository.findById(savedBeerOrderEntity.getId()).get();
+        savedBeerOrderEntity = beerOrderService.findById(savedBeerOrderEntity.getId());
 
         assertNotNull(savedBeerOrderEntity);
         assertEquals(BeerOrderStatusEnum.ALLOCATED, savedBeerOrderEntity.getOrderStatus());

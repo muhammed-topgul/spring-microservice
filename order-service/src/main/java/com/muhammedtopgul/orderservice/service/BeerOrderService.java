@@ -1,6 +1,7 @@
 package com.muhammedtopgul.orderservice.service;
 
 import com.muhammedtopgul.application.common.dto.BeerOrderDto;
+import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import com.muhammedtopgul.orderservice.pageable.BeerOrderPagedList;
 import org.springframework.data.domain.Pageable;
 
@@ -18,6 +19,12 @@ public interface BeerOrderService {
     BeerOrderDto placeOrder(UUID customerId, BeerOrderDto beerOrderDto);
 
     BeerOrderDto getOrderById(UUID customerId, UUID orderId);
+
+    BeerOrderEntity findById(UUID uuid);
+
+    BeerOrderEntity saveAndFlush(BeerOrderEntity beerOrderEntity);
+
+    BeerOrderEntity save(BeerOrderEntity beerOrderEntity);
 
     void pickupOrder(UUID customerId, UUID orderId);
 }
