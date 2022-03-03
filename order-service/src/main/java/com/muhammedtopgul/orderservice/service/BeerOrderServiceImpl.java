@@ -9,6 +9,7 @@ import com.muhammedtopgul.orderservice.mapper.BeerOrderMapper;
 import com.muhammedtopgul.orderservice.pageable.BeerOrderPagedList;
 import com.muhammedtopgul.orderservice.repository.BeerOrderRepository;
 import com.muhammedtopgul.orderservice.repository.CustomerRepository;
+import com.muhammedtopgul.orderservice.service.statemachine.BeerOrderManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -34,6 +35,7 @@ public class BeerOrderServiceImpl implements BeerOrderService {
     private final BeerOrderRepository beerOrderRepository;
     private final CustomerRepository customerRepository;
     private final BeerOrderMapper beerOrderMapper;
+    private final BeerOrderManager beerOrderManager;
 
     @Override
     public BeerOrderPagedList listOrders(UUID customerId, Pageable pageable) {
@@ -69,7 +71,7 @@ public class BeerOrderServiceImpl implements BeerOrderService {
                 beerOrder.getBeerOrderLines().forEach(line -> line.setBeerOrder(beerOrder));
             }
 
-            BeerOrderEntity savedBeerOrder = beerOrderRepository.saveAndFlush(beerOrder);
+            BeerOrderEntity savedBeerOrder = beerOrderManager.newBeerOrderEntity(beerOrder);
 
             log.debug("Saved Beer Order: " + beerOrder.getId());
 
@@ -106,10 +108,7 @@ public class BeerOrderServiceImpl implements BeerOrderService {
 
     @Override
     public void pickupOrder(UUID customerId, UUID orderId) {
-        BeerOrderEntity beerOrder = getOrder(customerId, orderId);
-        beerOrder.setOrderStatus(BeerOrderStatusEnum.PICKED_UP);
-
-        beerOrderRepository.save(beerOrder);
+        beerOrderManager.beerOrderPickedUp(orderId);
     }
 
     private BeerOrderEntity getOrder(UUID customerId, UUID orderId) {
