@@ -8,6 +8,7 @@ import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import com.muhammedtopgul.orderservice.repository.BeerOrderRepository;
 import com.muhammedtopgul.orderservice.statemachine.BeerOrderStateChangeInterceptor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
@@ -16,6 +17,7 @@ import org.springframework.statemachine.support.DefaultStateMachineContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -25,6 +27,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class BeerOrderManagerImpl implements BeerOrderManager {
 
     private final StateMachineFactory<BeerOrderStatusEnum, BeerOrderEventEnum> stateMachineFactory;
@@ -36,46 +39,48 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
     public BeerOrderEntity newBeerOrderEntity(BeerOrderEntity beerOrderEntity) {
         beerOrderEntity.setId(null);
         beerOrderEntity.setOrderStatus(BeerOrderStatusEnum.NEW);
-        beerOrderEntity = beerOrderRepository.save(beerOrderEntity);
+        beerOrderEntity = beerOrderRepository.saveAndFlush(beerOrderEntity);
         sendBeerOrderEvent(beerOrderEntity, BeerOrderEventEnum.VALIDATE_ORDER);
         return beerOrderEntity;
     }
 
     @Override
+    @Transactional
     public void processValidationResult(UUID beerOrderId, Boolean isValid) {
-        BeerOrderEntity beerOrderEntity = beerOrderRepository.findOneById(beerOrderId);
+        Optional<BeerOrderEntity> beerOrderOptional = beerOrderRepository.findById(beerOrderId);
 
-        if (isValid) {
-            sendBeerOrderEvent(beerOrderEntity, BeerOrderEventEnum.VALIDATION_PASSED);
-
-            sendBeerOrderEvent(beerOrderRepository.findOneById(beerOrderId), BeerOrderEventEnum.ALLOCATE_ORDER);
-        } else {
-            sendBeerOrderEvent(beerOrderEntity, BeerOrderEventEnum.VALIDATION_FAILED);
-        }
+        beerOrderOptional.ifPresentOrElse(beerOrderEntity -> {
+            if (isValid) {
+                sendBeerOrderEvent(beerOrderEntity, BeerOrderEventEnum.VALIDATION_PASSED);
+                sendBeerOrderEvent(beerOrderRepository.findById(beerOrderId).get(), BeerOrderEventEnum.ALLOCATE_ORDER);
+            } else {
+                sendBeerOrderEvent(beerOrderEntity, BeerOrderEventEnum.VALIDATION_FAILED);
+            }
+        }, () -> log.error(">>> Order Not Found. Id: " + beerOrderId));
     }
 
     @Override
     public void beerOrderAllocationPassed(BeerOrderDto beerOrderDto) {
-        BeerOrderEntity beerOrderEntity = beerOrderRepository.findOneById(beerOrderDto.getId());
+        BeerOrderEntity beerOrderEntity = beerOrderRepository.findById(beerOrderDto.getId()).get();
         sendBeerOrderEvent(beerOrderEntity, BeerOrderEventEnum.ALLOCATION_SUCCESS);
         this.updateAllocatedQuantity(beerOrderDto, beerOrderEntity);
     }
 
     @Override
     public void beerOrderAllocationPendingInventory(BeerOrderDto beerOrderDto) {
-        BeerOrderEntity beerOrderEntity = beerOrderRepository.findOneById(beerOrderDto.getId());
+        BeerOrderEntity beerOrderEntity = beerOrderRepository.findById(beerOrderDto.getId()).get();
         sendBeerOrderEvent(beerOrderEntity, BeerOrderEventEnum.ALLOCATION_NO_INVENTORY);
         this.updateAllocatedQuantity(beerOrderDto, beerOrderEntity);
     }
 
     @Override
     public void beerOrderAllocationFailed(BeerOrderDto beerOrderDto) {
-        BeerOrderEntity beerOrderEntity = beerOrderRepository.findOneById(beerOrderDto.getId());
+        BeerOrderEntity beerOrderEntity = beerOrderRepository.findById(beerOrderDto.getId()).get();
         sendBeerOrderEvent(beerOrderEntity, BeerOrderEventEnum.ALLOCATION_FAILED);
     }
 
     private void updateAllocatedQuantity(BeerOrderDto beerOrderDto, BeerOrderEntity beerOrderEntity) {
-        BeerOrderEntity allocatedOrder = beerOrderRepository.findOneById(beerOrderDto.getId());
+        BeerOrderEntity allocatedOrder = beerOrderRepository.findById(beerOrderDto.getId()).get();
 
         allocatedOrder.getBeerOrderLines().forEach(beerOrderLineEntity -> {
             beerOrderDto.getBeerOrderLines().forEach(beerOrderLineDto -> {
