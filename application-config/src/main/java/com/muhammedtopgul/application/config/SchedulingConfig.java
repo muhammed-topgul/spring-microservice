@@ -1,5 +1,6 @@
 package com.muhammedtopgul.application.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
@@ -14,7 +15,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 @EnableScheduling
 @EnableAsync
-public class SchedulerTaskConfig {
+@ConditionalOnProperty(value = "app.scheduling.enable", havingValue = "true", matchIfMissing = true)
+public class SchedulingConfig {
 
     public TaskExecutor taskExecutor() {
         return new SimpleAsyncTaskExecutor();

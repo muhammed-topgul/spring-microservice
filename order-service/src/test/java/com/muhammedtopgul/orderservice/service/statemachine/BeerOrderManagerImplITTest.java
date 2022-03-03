@@ -21,6 +21,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -40,6 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(WireMockExtension.class)
 @SpringBootTest
+@TestPropertySource(properties = "app.scheduling.enable=false")
 @ComponentScan(excludeFilters = {@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = TastingRoomService.class)})
 class BeerOrderManagerImplITTest {
 

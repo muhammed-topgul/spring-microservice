@@ -2,7 +2,7 @@ package com.muhammedtopgul.orderservice.configuration;
 
 import com.muhammedtopgul.application.config.BeanConfig;
 import com.muhammedtopgul.application.config.JmsConfig;
-import com.muhammedtopgul.application.config.SchedulerTaskConfig;
+import com.muhammedtopgul.application.config.SchedulingConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -12,6 +12,6 @@ import org.springframework.context.annotation.Import;
  */
 
 @Configuration
-@Import(value = {BeanConfig.class, JmsConfig.class, SchedulerTaskConfig.class})
+@Import(value = {BeanConfig.class, JmsConfig.class, SchedulingConfig.class})
 public class Config {
 }
