@@ -63,6 +63,7 @@ class BeerOrderManagerImplITTest {
     private CustomerEntity testCustomer;
 
     private final UUID beerId = UUID.randomUUID();
+    private final String upc = "12345";
 
     @TestConfiguration
     static class RestTemplateBuilderProvider {
@@ -85,9 +86,9 @@ class BeerOrderManagerImplITTest {
 
     @Test
     void testNewToAllocated() throws JsonProcessingException {
-        BeerDto beerDto = BeerDto.builder().id(beerId).upc("12345").build();
+        BeerDto beerDto = BeerDto.builder().id(beerId).upc(upc).build();
 
-        wireMockServer.stubFor(get("/api/v1/beer/by-upc/12345")
+        wireMockServer.stubFor(get("/api/v1/beer/by-upc/" + upc)
                 .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
 
         BeerOrderEntity beerOrderEntity = this.createBeerOrder();
@@ -114,6 +115,33 @@ class BeerOrderManagerImplITTest {
         });
     }
 
+    @Test
+    void testNewToPickUp() throws JsonProcessingException {
+        BeerDto beerDto = BeerDto.builder().id(beerId).upc(upc).build();
+
+        wireMockServer.stubFor(get("/api/v1/beer/by-upc/" + upc)
+                .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
+
+        BeerOrderEntity beerOrderEntity = this.createBeerOrder();
+
+        BeerOrderEntity savedBeerOrderEntity = beerOrderManager.newBeerOrderEntity(beerOrderEntity);
+
+        await().untilAsserted(() -> {
+            BeerOrderEntity foundOrder = beerOrderService.findById(beerOrderEntity.getId());
+            assertEquals(BeerOrderStatusEnum.ALLOCATED, foundOrder.getOrderStatus());
+        });
+
+        beerOrderManager.beerOrderPickedUp(savedBeerOrderEntity.getId());
+
+        await().untilAsserted(() -> {
+            BeerOrderEntity foundOrder = beerOrderService.findById(beerOrderEntity.getId());
+            assertEquals(BeerOrderStatusEnum.PICKED_UP, foundOrder.getOrderStatus());
+        });
+
+        BeerOrderEntity pickedUpOrder = beerOrderService.findById(savedBeerOrderEntity.getId());
+        assertEquals(BeerOrderStatusEnum.PICKED_UP, pickedUpOrder.getOrderStatus());
+    }
+
     public BeerOrderEntity createBeerOrder() {
         BeerOrderEntity beerOrderEntity = BeerOrderEntity.builder()
                 .customer(testCustomer)
@@ -123,7 +151,7 @@ class BeerOrderManagerImplITTest {
         lineEntities.add(
                 BeerOrderLineEntity.builder()
                         .beerId(beerId)
-                        .upc("12345")
+                        .upc(upc)
                         .orderQuantity(1)
                         .beerOrder(beerOrderEntity)
                         .build());
