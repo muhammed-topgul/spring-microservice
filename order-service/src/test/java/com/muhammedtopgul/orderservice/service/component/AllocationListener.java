@@ -23,6 +23,10 @@ public class AllocationListener {
 
     @JmsListener(destination = JmsConstants.ALLOCATE_ORDER_REQUEST_QUEUE)
     public void listen(AllocateOrderRequestEvent event) {
+        event.getBeerOrderDto().getBeerOrderLines().forEach(beerOrderLineDto -> {
+            beerOrderLineDto.setQuantityAllocated(beerOrderLineDto.getOrderQuantity());
+        });
+
         AllocateOrderResultEvent allocateOrderResultEvent = new AllocateOrderResultEvent();
         allocateOrderResultEvent.setBeerOrderDto(event.getBeerOrderDto());
         allocateOrderResultEvent.setPendingInventory(false);

@@ -63,14 +63,14 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
     public void beerOrderAllocationPassed(BeerOrderDto beerOrderDto) {
         BeerOrderEntity beerOrderEntity = beerOrderRepository.findById(beerOrderDto.getId()).get();
         sendBeerOrderEvent(beerOrderEntity, BeerOrderEventEnum.ALLOCATION_SUCCESS);
-        this.updateAllocatedQuantity(beerOrderDto, beerOrderEntity);
+        this.updateAllocatedQuantity(beerOrderDto);
     }
 
     @Override
     public void beerOrderAllocationPendingInventory(BeerOrderDto beerOrderDto) {
         BeerOrderEntity beerOrderEntity = beerOrderRepository.findById(beerOrderDto.getId()).get();
         sendBeerOrderEvent(beerOrderEntity, BeerOrderEventEnum.ALLOCATION_NO_INVENTORY);
-        this.updateAllocatedQuantity(beerOrderDto, beerOrderEntity);
+        this.updateAllocatedQuantity(beerOrderDto);
     }
 
     @Override
@@ -79,18 +79,18 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
         sendBeerOrderEvent(beerOrderEntity, BeerOrderEventEnum.ALLOCATION_FAILED);
     }
 
-    private void updateAllocatedQuantity(BeerOrderDto beerOrderDto, BeerOrderEntity beerOrderEntity) {
+    private void updateAllocatedQuantity(BeerOrderDto beerOrderDto) {
         BeerOrderEntity allocatedOrder = beerOrderRepository.findById(beerOrderDto.getId()).get();
 
         allocatedOrder.getBeerOrderLines().forEach(beerOrderLineEntity -> {
             beerOrderDto.getBeerOrderLines().forEach(beerOrderLineDto -> {
-                if (beerOrderEntity.getId().equals(beerOrderDto.getId())) {
+                if (beerOrderLineEntity.getId().equals(beerOrderLineDto.getId())) {
                     beerOrderLineEntity.setQuantityAllocated(beerOrderLineDto.getQuantityAllocated());
                 }
             });
         });
 
-        beerOrderRepository.saveAndFlush(beerOrderEntity);
+        beerOrderRepository.saveAndFlush(allocatedOrder);
     }
 
     private void sendBeerOrderEvent(BeerOrderEntity beerOrderEntity, BeerOrderEventEnum eventEnum) {

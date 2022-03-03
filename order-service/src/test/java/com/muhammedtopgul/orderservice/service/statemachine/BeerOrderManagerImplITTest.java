@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jenspiegsa.wiremockextension.WireMockExtension;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.muhammedtopgul.application.common.dto.BeerDto;
+import com.muhammedtopgul.application.common.dto.BeerOrderLineDto;
 import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import com.muhammedtopgul.orderservice.entity.BeerOrderLineEntity;
@@ -96,15 +97,22 @@ class BeerOrderManagerImplITTest {
 
         await().untilAsserted(() -> {
             BeerOrderEntity foundOrder = beerOrderRepository.findById(beerOrderEntity.getId()).get();
-
-            // TODO Allocated Status
             assertEquals(BeerOrderStatusEnum.ALLOCATED, foundOrder.getOrderStatus());
+        });
+
+        await().untilAsserted(() -> {
+            BeerOrderEntity foundOrder = beerOrderRepository.findById(beerOrderEntity.getId()).get();
+            BeerOrderLineEntity beerOrderLineEntity = foundOrder.getBeerOrderLines().iterator().next();
+            assertEquals(beerOrderLineEntity.getOrderQuantity(), beerOrderLineEntity.getQuantityAllocated());
         });
 
         savedBeerOrderEntity = beerOrderRepository.findById(savedBeerOrderEntity.getId()).get();
 
         assertNotNull(savedBeerOrderEntity);
         assertEquals(BeerOrderStatusEnum.ALLOCATED, savedBeerOrderEntity.getOrderStatus());
+        savedBeerOrderEntity.getBeerOrderLines().forEach(beerOrderLineEntity -> {
+            assertEquals(beerOrderLineEntity.getOrderQuantity(), beerOrderLineEntity.getQuantityAllocated());
+        });
     }
 
     public BeerOrderEntity createBeerOrder() {
