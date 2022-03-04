@@ -1,6 +1,6 @@
 package com.muhammedtopgul.orderservice.service.component;
 
-import com.muhammedtopgul.application.common.constant.jms.JmsConstants;
+import com.muhammedtopgul.application.common.constant.jms.JmsQueues;
 import com.muhammedtopgul.application.common.constant.test.CustomerRefConstants;
 import com.muhammedtopgul.application.common.event.ValidateOrderRequestEvent;
 import com.muhammedtopgul.application.common.event.ValidateOrderResultEvent;
@@ -23,7 +23,7 @@ public class ValidationListener {
 
     private final JmsTemplate jmsTemplate;
 
-    @JmsListener(destination = JmsConstants.VALIDATE_ORDER_REQUEST_QUEUE)
+    @JmsListener(destination = JmsQueues.VALIDATE_ORDER_REQUEST_QUEUE)
     public void listen(Message message) {
         ValidateOrderRequestEvent event = (ValidateOrderRequestEvent) message.getPayload();
 
@@ -34,6 +34,6 @@ public class ValidationListener {
         resultEvent.setOrderId(event.getBeerOrderDto().getId());
         resultEvent.setIsValid(isValid);
 
-        jmsTemplate.convertAndSend(JmsConstants.VALIDATE_ORDER_RESPONSE_QUEUE, resultEvent);
+        jmsTemplate.convertAndSend(JmsQueues.VALIDATE_ORDER_RESPONSE_QUEUE, resultEvent);
     }
 }

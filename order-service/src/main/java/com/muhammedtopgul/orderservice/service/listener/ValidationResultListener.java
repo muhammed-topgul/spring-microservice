@@ -1,6 +1,6 @@
 package com.muhammedtopgul.orderservice.service.listener;
 
-import com.muhammedtopgul.application.common.constant.jms.JmsConstants;
+import com.muhammedtopgul.application.common.constant.jms.JmsQueues;
 import com.muhammedtopgul.application.common.event.ValidateOrderResultEvent;
 import com.muhammedtopgul.orderservice.service.statemachine.BeerOrderManager;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class ValidationResultListener {
 
     private final BeerOrderManager beerOrderManager;
 
-    @JmsListener(destination = JmsConstants.VALIDATE_ORDER_RESPONSE_QUEUE)
+    @JmsListener(destination = JmsQueues.VALIDATE_ORDER_RESPONSE_QUEUE)
     public void listen(ValidateOrderResultEvent event) {
         final UUID beerOrderId = event.getOrderId();
         log.debug("Validation Result for Order Id: " + beerOrderId);

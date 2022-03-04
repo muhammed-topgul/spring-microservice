@@ -1,6 +1,6 @@
 package com.muhammedtopgul.orderservice.service.listener;
 
-import com.muhammedtopgul.application.common.constant.jms.JmsConstants;
+import com.muhammedtopgul.application.common.constant.jms.JmsQueues;
 import com.muhammedtopgul.application.common.event.AllocateOrderResultEvent;
 import com.muhammedtopgul.orderservice.service.statemachine.BeerOrderManager;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class AllocationResultListener {
 
     private final BeerOrderManager beerOrderManager;
 
-    @JmsListener(destination = JmsConstants.ALLOCATE_ORDER_RESPONSE_QUEUE)
+    @JmsListener(destination = JmsQueues.ALLOCATE_ORDER_RESPONSE_QUEUE)
     public void listen(AllocateOrderResultEvent event) {
         if (!event.isAllocationError() && !event.isPendingInventory()) {
             // allocated normally

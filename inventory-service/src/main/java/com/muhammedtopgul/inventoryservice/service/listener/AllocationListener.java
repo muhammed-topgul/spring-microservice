@@ -1,6 +1,6 @@
 package com.muhammedtopgul.inventoryservice.service.listener;
 
-import com.muhammedtopgul.application.common.constant.jms.JmsConstants;
+import com.muhammedtopgul.application.common.constant.jms.JmsQueues;
 import com.muhammedtopgul.application.common.event.AllocateOrderRequestEvent;
 import com.muhammedtopgul.application.common.event.AllocateOrderResultEvent;
 import com.muhammedtopgul.inventoryservice.service.AllocationService;
@@ -23,7 +23,7 @@ public class AllocationListener {
     private final AllocationService allocationService;
     private final JmsTemplate jmsTemplate;
 
-    @JmsListener(destination = JmsConstants.ALLOCATE_ORDER_REQUEST_QUEUE)
+    @JmsListener(destination = JmsQueues.ALLOCATE_ORDER_REQUEST_QUEUE)
     public void listen(AllocateOrderRequestEvent event) {
         AllocateOrderResultEvent allocateOrderResultEvent = new AllocateOrderResultEvent();
         allocateOrderResultEvent.setBeerOrderDto(event.getBeerOrderDto());
@@ -36,6 +36,6 @@ public class AllocationListener {
             allocateOrderResultEvent.setAllocationError(true);
         }
 
-        jmsTemplate.convertAndSend(JmsConstants.ALLOCATE_ORDER_RESPONSE_QUEUE, allocateOrderResultEvent);
+        jmsTemplate.convertAndSend(JmsQueues.ALLOCATE_ORDER_RESPONSE_QUEUE, allocateOrderResultEvent);
     }
 }

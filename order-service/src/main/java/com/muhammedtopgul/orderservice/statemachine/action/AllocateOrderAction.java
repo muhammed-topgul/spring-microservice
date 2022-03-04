@@ -1,6 +1,6 @@
 package com.muhammedtopgul.orderservice.statemachine.action;
 
-import com.muhammedtopgul.application.common.constant.jms.JmsConstants;
+import com.muhammedtopgul.application.common.constant.jms.JmsQueues;
 import com.muhammedtopgul.application.common.constant.statemachine.StateMachineConstants;
 import com.muhammedtopgul.application.common.enumeration.BeerOrderEventEnum;
 import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
@@ -40,7 +40,7 @@ public class AllocateOrderAction implements Action<BeerOrderStatusEnum, BeerOrde
 
         AllocateOrderRequestEvent requestEvent = new AllocateOrderRequestEvent(beerOrderMapper.toDto(beerOrderEntity));
         jmsTemplate.convertAndSend(
-                JmsConstants.ALLOCATE_ORDER_REQUEST_QUEUE,
+                JmsQueues.ALLOCATE_ORDER_REQUEST_QUEUE,
                 requestEvent);
         log.debug(">>> Sent Allocation Request for order id: " + beerOrderId);
     }

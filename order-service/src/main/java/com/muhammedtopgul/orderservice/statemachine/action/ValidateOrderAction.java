@@ -1,6 +1,6 @@
 package com.muhammedtopgul.orderservice.statemachine.action;
 
-import com.muhammedtopgul.application.common.constant.jms.JmsConstants;
+import com.muhammedtopgul.application.common.constant.jms.JmsQueues;
 import com.muhammedtopgul.application.common.constant.statemachine.StateMachineConstants;
 import com.muhammedtopgul.application.common.enumeration.BeerOrderEventEnum;
 import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
@@ -9,7 +9,6 @@ import com.muhammedtopgul.application.common.exception.ApplicationException;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import com.muhammedtopgul.orderservice.mapper.BeerOrderMapper;
 import com.muhammedtopgul.orderservice.repository.BeerOrderRepository;
-import com.muhammedtopgul.orderservice.service.BeerOrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;
@@ -40,7 +39,7 @@ public class ValidateOrderAction implements Action<BeerOrderStatusEnum, BeerOrde
                 .orElseThrow(() -> new ApplicationException(String.format("Beer Order Not Found: %s", beerOrderId), BeerOrderEntity.class));
 
         jmsTemplate.convertAndSend(
-                JmsConstants.VALIDATE_ORDER_REQUEST_QUEUE,
+                JmsQueues.VALIDATE_ORDER_REQUEST_QUEUE,
                 ValidateOrderRequestEvent.builder()
                         .beerOrderDto(beerOrderMapper.toDto(beerOrderEntity))
                         .build());

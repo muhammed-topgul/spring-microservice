@@ -5,7 +5,7 @@ import com.muhammedtopgul.application.common.event.BrewBeerEvent;
 import com.muhammedtopgul.beerservice.mapper.BeerMapper;
 import com.muhammedtopgul.beerservice.repository.BeerRepository;
 import com.muhammedtopgul.beerservice.service.external.inventory.InventoryService;
-import com.muhammedtopgul.application.common.constant.jms.JmsConstants;
+import com.muhammedtopgul.application.common.constant.jms.JmsQueues;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;
@@ -40,7 +40,7 @@ class BrewingService {
             log.debug("Inventory is : " + beerEntity.getMinOnHand());
 
             if (beerEntity.getMinOnHand() >= inventoryQuantityOnHand) {
-                jmsTemplate.convertAndSend(JmsConstants.BREWING_REQUEST_QUEUE, new BrewBeerEvent(beerMapper.toDto(beerEntity)));
+                jmsTemplate.convertAndSend(JmsQueues.BREWING_REQUEST_QUEUE, new BrewBeerEvent(beerMapper.toDto(beerEntity)));
             }
         });
     }
