@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class BeerOrderValidationListener {
+public class ValidationListener {
 
     private final JmsTemplate jmsTemplate;
 
@@ -26,9 +26,11 @@ public class BeerOrderValidationListener {
     public void listen(Message message) {
         ValidateOrderRequestEvent event = (ValidateOrderRequestEvent) message.getPayload();
 
+        boolean isValid = event.getBeerOrderDto().getCustomerRef() == null || !event.getBeerOrderDto().getCustomerRef().equals("fail-validation");
+
         ValidateOrderResultEvent resultEvent = new ValidateOrderResultEvent();
         resultEvent.setOrderId(event.getBeerOrderDto().getId());
-        resultEvent.setIsValid(true);
+        resultEvent.setIsValid(isValid);
 
         jmsTemplate.convertAndSend(JmsConstants.VALIDATE_ORDER_RESPONSE_QUEUE, resultEvent);
     }
