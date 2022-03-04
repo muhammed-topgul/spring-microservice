@@ -10,4 +10,6 @@ import com.muhammedtopgul.application.common.dto.BeerOrderDto;
 public interface AllocationService {
 
     Boolean allocateOrder(BeerOrderDto beerOrderDto);
+
+    void deallocateOrder(BeerOrderDto beerOrderDto);
 }

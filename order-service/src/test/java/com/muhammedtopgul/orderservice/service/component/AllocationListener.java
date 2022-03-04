@@ -26,6 +26,12 @@ public class AllocationListener {
     public void listen(AllocateOrderRequestEvent event) {
         boolean pendingInventory = this.check(event, CustomerRefConstants.PARTIAL_ALLOCATION);
         boolean allocationError = this.check(event, CustomerRefConstants.FAIL_ALLOCATION);
+        boolean sendResponse = true;
+        if (event.getBeerOrderDto().getCustomerRef() != null) {
+            if (event.getBeerOrderDto().getCustomerRef().equals(CustomerRefConstants.DONT_ALLOCATE)) {
+                sendResponse = false;
+            }
+        }
 
         event.getBeerOrderDto().getBeerOrderLines().forEach(beerOrderLineDto -> {
             if (pendingInventory) {
@@ -40,7 +46,8 @@ public class AllocationListener {
         allocateOrderResultEvent.setPendingInventory(pendingInventory);
         allocateOrderResultEvent.setAllocationError(allocationError);
 
-        jmsTemplate.convertAndSend(JmsQueues.ALLOCATE_ORDER_RESPONSE_QUEUE, allocateOrderResultEvent);
+        if (sendResponse)
+            jmsTemplate.convertAndSend(JmsQueues.ALLOCATE_ORDER_RESPONSE_QUEUE, allocateOrderResultEvent);
     }
 
     private boolean check(AllocateOrderRequestEvent event, String ref) {

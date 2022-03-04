@@ -30,10 +30,18 @@ public class ValidationListener {
         boolean isValid = event.getBeerOrderDto().getCustomerRef() == null ||
                 !event.getBeerOrderDto().getCustomerRef().equals(CustomerRefConstants.FAIL_VALIDATION);
 
+        boolean sendResponse = true;
+        if (event.getBeerOrderDto().getCustomerRef() != null) {
+            if (event.getBeerOrderDto().getCustomerRef().equals(CustomerRefConstants.DONT_VALIDATE)) {
+                sendResponse = false;
+            }
+        }
+
         ValidateOrderResultEvent resultEvent = new ValidateOrderResultEvent();
         resultEvent.setOrderId(event.getBeerOrderDto().getId());
         resultEvent.setIsValid(isValid);
 
-        jmsTemplate.convertAndSend(JmsQueues.VALIDATE_ORDER_RESPONSE_QUEUE, resultEvent);
+        if (sendResponse)
+            jmsTemplate.convertAndSend(JmsQueues.VALIDATE_ORDER_RESPONSE_QUEUE, resultEvent);
     }
 }
