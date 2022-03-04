@@ -17,4 +17,5 @@ public class JmsQueues {
     public static final String ALLOCATE_ORDER_REQUEST_QUEUE = "allocate-order-request-queue";
     public static final String ALLOCATE_ORDER_RESPONSE_QUEUE = "allocate-order-response-queue";
     public static final String ALLOCATE_FAILURE_QUEUE = "allocate-failure-queue";
+    public static final String DEALLOCATE_ORDER_REQUEST_QUEUE = "allocate-order-request-queue";
 }
