@@ -1,6 +1,7 @@
 package com.muhammedtopgul.orderservice.service.component;
 
 import com.muhammedtopgul.application.common.constant.jms.JmsConstants;
+import com.muhammedtopgul.application.common.constant.test.CustomerRefConstants;
 import com.muhammedtopgul.application.common.event.ValidateOrderRequestEvent;
 import com.muhammedtopgul.application.common.event.ValidateOrderResultEvent;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,8 @@ public class ValidationListener {
     public void listen(Message message) {
         ValidateOrderRequestEvent event = (ValidateOrderRequestEvent) message.getPayload();
 
-        boolean isValid = event.getBeerOrderDto().getCustomerRef() == null || !event.getBeerOrderDto().getCustomerRef().equals("fail-validation");
+        boolean isValid = event.getBeerOrderDto().getCustomerRef() == null ||
+                !event.getBeerOrderDto().getCustomerRef().equals(CustomerRefConstants.FAIL_VALIDATION);
 
         ValidateOrderResultEvent resultEvent = new ValidateOrderResultEvent();
         resultEvent.setOrderId(event.getBeerOrderDto().getId());

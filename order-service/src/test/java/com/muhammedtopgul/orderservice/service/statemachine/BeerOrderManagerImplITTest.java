@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jenspiegsa.wiremockextension.WireMockExtension;
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.muhammedtopgul.application.common.constant.test.CustomerRefConstants;
 import com.muhammedtopgul.application.common.dto.BeerDto;
 import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
@@ -150,13 +151,49 @@ class BeerOrderManagerImplITTest {
                 .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
 
         BeerOrderEntity beerOrderEntity = this.createBeerOrder();
-        beerOrderEntity.setCustomerRef("fail-validation");
+        beerOrderEntity.setCustomerRef(CustomerRefConstants.FAIL_VALIDATION);
 
         beerOrderManager.newBeerOrderEntity(beerOrderEntity);
 
         await().untilAsserted(() -> {
             BeerOrderEntity foundOrder = beerOrderService.findById(beerOrderEntity.getId());
             assertEquals(BeerOrderStatusEnum.VALIDATION_EXCEPTION, foundOrder.getOrderStatus());
+        });
+    }
+
+    @Test
+    void testAllocationFailure() throws JsonProcessingException {
+        BeerDto beerDto = BeerDto.builder().id(beerId).upc(upc).build();
+
+        wireMockServer.stubFor(get("/api/v1/beer/by-upc/" + upc)
+                .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
+
+        BeerOrderEntity beerOrderEntity = this.createBeerOrder();
+        beerOrderEntity.setCustomerRef(CustomerRefConstants.FAIL_ALLOCATION);
+
+        BeerOrderEntity savedBeerOrderEntity = beerOrderManager.newBeerOrderEntity(beerOrderEntity);
+
+        await().untilAsserted(() -> {
+            BeerOrderEntity foundOrder = beerOrderService.findById(beerOrderEntity.getId());
+            assertEquals(BeerOrderStatusEnum.ALLOCATION_EXCEPTION, foundOrder.getOrderStatus());
+        });
+    }
+
+    @Test
+    void testPartialAllocation() throws JsonProcessingException {
+        BeerDto beerDto = BeerDto.builder().id(beerId).upc(upc).build();
+
+        wireMockServer.stubFor(get("/api/v1/beer/by-upc/" + upc)
+                .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
+
+        BeerOrderEntity beerOrderEntity = this.createBeerOrder();
+        beerOrderEntity.setCustomerRef(CustomerRefConstants.PARTIAL_ALLOCATION);
+
+        BeerOrderEntity savedBeerOrderEntity = beerOrderManager.newBeerOrderEntity(beerOrderEntity);
+
+        await().untilAsserted(() -> {
+            BeerOrderEntity foundOrder = beerOrderService.findById(beerOrderEntity.getId());
+            assertEquals(BeerOrderStatusEnum.PENDING_INVENTORY, foundOrder.getOrderStatus());
         });
     }
 
