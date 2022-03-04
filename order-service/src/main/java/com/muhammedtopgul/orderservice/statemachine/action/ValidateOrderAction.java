@@ -5,8 +5,10 @@ import com.muhammedtopgul.application.common.constant.statemachine.StateMachineC
 import com.muhammedtopgul.application.common.enumeration.BeerOrderEventEnum;
 import com.muhammedtopgul.application.common.enumeration.BeerOrderStatusEnum;
 import com.muhammedtopgul.application.common.event.ValidateOrderRequestEvent;
+import com.muhammedtopgul.application.common.exception.ApplicationException;
 import com.muhammedtopgul.orderservice.entity.BeerOrderEntity;
 import com.muhammedtopgul.orderservice.mapper.BeerOrderMapper;
+import com.muhammedtopgul.orderservice.repository.BeerOrderRepository;
 import com.muhammedtopgul.orderservice.service.BeerOrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,14 +29,15 @@ import java.util.UUID;
 @Slf4j
 public class ValidateOrderAction implements Action<BeerOrderStatusEnum, BeerOrderEventEnum> {
 
-    private final BeerOrderService beerOrderService;
+    private final BeerOrderRepository beerOrderRepository;
     private final BeerOrderMapper beerOrderMapper;
     private final JmsTemplate jmsTemplate;
 
     @Override
     public void execute(StateContext<BeerOrderStatusEnum, BeerOrderEventEnum> stateContext) {
         String beerOrderId = (String) stateContext.getMessage().getHeaders().get(StateMachineConstants.ORDER_ID_HEADER);
-        BeerOrderEntity beerOrderEntity = beerOrderService.findById(UUID.fromString(beerOrderId));
+        BeerOrderEntity beerOrderEntity = beerOrderRepository.findById(UUID.fromString(beerOrderId))
+                .orElseThrow(() -> new ApplicationException(String.format("Beer Order Not Found: %s", beerOrderId), BeerOrderEntity.class));
 
         jmsTemplate.convertAndSend(
                 JmsConstants.VALIDATE_ORDER_REQUEST_QUEUE,

@@ -22,9 +22,5 @@ public interface BeerOrderService {
 
     BeerOrderEntity findById(UUID uuid);
 
-    BeerOrderEntity saveAndFlush(BeerOrderEntity beerOrderEntity);
-
-    BeerOrderEntity save(BeerOrderEntity beerOrderEntity);
-
     void pickupOrder(UUID customerId, UUID orderId);
 }

@@ -97,16 +97,6 @@ public class BeerOrderServiceImpl implements BeerOrderService {
     }
 
     @Override
-    public BeerOrderEntity saveAndFlush(BeerOrderEntity beerOrderEntity) {
-        return beerOrderRepository.saveAndFlush(beerOrderEntity);
-    }
-
-    @Override
-    public BeerOrderEntity save(BeerOrderEntity beerOrderEntity) {
-        return beerOrderRepository.save(beerOrderEntity);
-    }
-
-    @Override
     public void pickupOrder(UUID customerId, UUID orderId) {
         beerOrderManager.beerOrderPickedUp(orderId);
     }
