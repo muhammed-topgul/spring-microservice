@@ -31,6 +31,7 @@ public class AllocationListener {
         try {
             Boolean allocationResult = allocationService.allocateOrder(event.getBeerOrderDto());
             allocateOrderResultEvent.setPendingInventory(!allocationResult);
+            allocateOrderResultEvent.setAllocationError(false);
         } catch (Exception e) {
             log.error(">>> Allocation failed for Order Id: " + event.getBeerOrderDto().getId());
             allocateOrderResultEvent.setAllocationError(true);
