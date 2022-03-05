@@ -16,7 +16,7 @@ import java.util.UUID;
  */
 
 @RestController
-@RequestMapping("/api/v1/customers/{customerId}/")
+@RequestMapping("/api/v1/customer/{customerId}/")
 @RequiredArgsConstructor
 public class BeerOrderController {
 

@@ -17,6 +17,7 @@ public class LocalHostRouteConfig {
     public RouteLocator localHostRoutes(RouteLocatorBuilder locatorBuilder) {
         return locatorBuilder.routes()
                 .route(r ->r.path("/api/v1/beer","/api/v1/beer/**").uri("http://localhost:8080"))
+                .route(r -> r.path("/api/v1/customer", "/api/v1/customer/**").uri("http://localhost:8085"))
                 .build();
     }
 }
