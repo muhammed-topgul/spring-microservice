@@ -38,7 +38,7 @@ public class BeerOrderServiceImpl implements BeerOrderService {
     private final BeerOrderManager beerOrderManager;
 
     @Override
-    public BeerOrderPagedList listOrders(UUID customerId, Pageable pageable) {
+    public BeerOrderPagedList findAll(UUID customerId, Pageable pageable) {
         Optional<CustomerEntity> customerOptional = customerRepository.findById(customerId);
 
         if (customerOptional.isPresent()) {
@@ -47,9 +47,10 @@ public class BeerOrderServiceImpl implements BeerOrderService {
             return new BeerOrderPagedList(beerOrderPage
                     .stream()
                     .map(beerOrderMapper::toDto)
-                    .collect(Collectors.toList()), PageRequest.of(
-                    beerOrderPage.getPageable().getPageNumber(),
-                    beerOrderPage.getPageable().getPageSize()),
+                    .collect(Collectors.toList()),
+                    PageRequest.of(
+                            beerOrderPage.getPageable().getPageNumber(),
+                            beerOrderPage.getPageable().getPageSize()),
                     beerOrderPage.getTotalElements());
         } else {
             return null;

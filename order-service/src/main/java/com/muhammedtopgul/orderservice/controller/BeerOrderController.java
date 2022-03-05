@@ -27,7 +27,7 @@ public class BeerOrderController {
 
 
     @GetMapping("orders")
-    public BeerOrderPagedList listOrders(@PathVariable("customerId") UUID customerId,
+    public BeerOrderPagedList findAll(@PathVariable("customerId") UUID customerId,
                                          @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
                                          @RequestParam(value = "pageSize", required = false) Integer pageSize) {
 
@@ -39,7 +39,7 @@ public class BeerOrderController {
             pageSize = DEFAULT_PAGE_SIZE;
         }
 
-        return beerOrderService.listOrders(customerId, PageRequest.of(pageNumber, pageSize));
+        return beerOrderService.findAll(customerId, PageRequest.of(pageNumber, pageSize));
     }
 
     @PostMapping("orders")
