@@ -1,9 +1,6 @@
 package com.muhammedtopgul.beerservice.configuration;
 
-import com.muhammedtopgul.application.config.BeanConfig;
-import com.muhammedtopgul.application.config.CacheConfig;
-import com.muhammedtopgul.application.config.JmsConfig;
-import com.muhammedtopgul.application.config.SchedulingConfig;
+import com.muhammedtopgul.application.config.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -13,6 +10,11 @@ import org.springframework.context.annotation.Import;
  */
 
 @Configuration
-@Import(value = {BeanConfig.class, CacheConfig.class, JmsConfig.class, SchedulingConfig.class})
+@Import(value = {
+        BeanConfig.class,
+        CacheConfig.class,
+        EurekaLocalDiscoveryConfig.class,
+        JmsConfig.class,
+        SchedulingConfig.class})
 public class Config {
 }
