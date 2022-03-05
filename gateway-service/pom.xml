@@ -9,11 +9,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <name>application-gateway</name>
+    <name>gateway-service</name>
     <groupId>com.muhammedtopgul</groupId>
-    <artifactId>application-gateway</artifactId>
+    <artifactId>gateway-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <description>Spring Cloud Gateway Application</description>
+    <description>Spring Cloud Gateway Service</description>
 
     <properties>
         <java.version>11</java.version>
