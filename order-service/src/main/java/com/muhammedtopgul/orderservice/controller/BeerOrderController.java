@@ -28,8 +28,8 @@ public class BeerOrderController {
 
     @GetMapping("orders")
     public BeerOrderPagedList findAll(@PathVariable("customerId") UUID customerId,
-                                         @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
-                                         @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+                                      @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
+                                      @RequestParam(value = "pageSize", required = false) Integer pageSize) {
 
         if (pageNumber == null || pageNumber < 0) {
             pageNumber = DEFAULT_PAGE_NUMBER;
