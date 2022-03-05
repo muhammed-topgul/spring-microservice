@@ -43,7 +43,6 @@ public class TastingRoomService {
     @Transactional
     @Scheduled(fixedRate = 2000) //run every 2 seconds
     public void placeTastingRoomOrder() {
-
         List<CustomerEntity> customerList = customerRepository.findAllByCustomerNameLike(BeerOrderLoader.TASTING_ROOM);
 
         if (customerList.size() == 1) { //should be just one

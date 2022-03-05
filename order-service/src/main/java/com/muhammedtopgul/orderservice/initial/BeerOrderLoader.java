@@ -31,7 +31,7 @@ public class BeerOrderLoader implements CommandLineRunner {
     }
 
     private void loadCustomerData() {
-        if (customerRepository.count() == 0) {
+        if (customerRepository.findAllByCustomerNameLike(BeerOrderLoader.TASTING_ROOM).isEmpty()) {
             CustomerEntity savedCustomer = customerRepository.save(CustomerEntity.builder()
                     .customerName(TASTING_ROOM)
                     .apiKey(UUID.randomUUID())
