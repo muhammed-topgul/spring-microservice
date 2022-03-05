@@ -1,5 +1,6 @@
 package com.muhammedtopgul.inventoryservice.configuration;
 
+import com.muhammedtopgul.application.config.EurekaLocalDiscoveryConfig;
 import com.muhammedtopgul.application.config.JmsConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -10,6 +11,8 @@ import org.springframework.context.annotation.Import;
  */
 
 @Configuration
-@Import(JmsConfig.class)
+@Import(value = {
+        EurekaLocalDiscoveryConfig.class,
+        JmsConfig.class})
 public class Config {
 }
