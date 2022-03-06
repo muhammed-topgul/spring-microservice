@@ -1,10 +1,11 @@
-package com.muhammedtopgul.beerservice.service.external.inventory;
+package com.muhammedtopgul.beerservice.service.external;
 
 import com.muhammedtopgul.application.common.dto.InventoryDto;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +22,12 @@ import java.util.UUID;
  */
 
 @Service
+@Profile("!eureka-local-discovery")
 @ConfigurationProperties(prefix = "external.service", ignoreUnknownFields = false)
 @Setter
 @RequiredArgsConstructor
 @Slf4j
-public class InventoryServiceImpl implements InventoryService {
+public class InventoryServiceRestTemplateImpl implements InventoryService {
 
     private final RestTemplate restTemplate;
 
