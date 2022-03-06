@@ -8,22 +8,22 @@ import org.springframework.context.annotation.Profile;
 
 /**
  * @author muhammed-topgul
- * @since 05.03.2022 22:02
+ * @since 06.03.2022 22:47
  */
 
 @Configuration
-@Profile("!eureka-local-discovery")
-public class LocalHostRouteConfig {
+@Profile("eureka-local-discovery")
+public class LoadBalanceRouteConfig {
 
     @Bean
-    public RouteLocator localHostRoutes(RouteLocatorBuilder locatorBuilder) {
+    public RouteLocator loadBalanceRoutes(RouteLocatorBuilder locatorBuilder) {
         return locatorBuilder.routes()
                 .route(r -> r.path("/api/v1/beer", "/api/v1/beer/*", "/api/v1/beer/by-upc/*")
-                            .uri("http://localhost:8080"))
+                        .uri("lb://beer-service"))
                 .route(r -> r.path("/api/v1/customer", "/api/v1/customer/**")
-                            .uri("http://localhost:8085"))
+                        .uri("lb://order-service"))
                 .route(r -> r.path("/api/v1/beer/*/inventory")
-                            .uri("http://localhost:8090"))
+                        .uri("lb://inventory-service"))
                 .build();
     }
 }
