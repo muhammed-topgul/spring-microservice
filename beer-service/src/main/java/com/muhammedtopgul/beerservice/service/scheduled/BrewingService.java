@@ -4,7 +4,7 @@ import com.muhammedtopgul.beerservice.entity.BeerEntity;
 import com.muhammedtopgul.application.common.event.BrewBeerEvent;
 import com.muhammedtopgul.beerservice.mapper.BeerMapper;
 import com.muhammedtopgul.beerservice.repository.BeerRepository;
-import com.muhammedtopgul.beerservice.service.external.InventoryService;
+import com.muhammedtopgul.beerservice.service.external.inventory.InventoryService;
 import com.muhammedtopgul.application.common.constant.jms.JmsQueues;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

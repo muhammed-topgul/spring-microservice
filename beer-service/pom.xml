@@ -16,7 +16,16 @@
     <version>0.0.1-SNAPSHOT</version>
     <description>Beer Service Application</description>
 
+    <properties>
+        <resilience4j.version>1.0.2.RELEASE</resilience4j.version>
+    </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
+            <version>${resilience4j.version}</version>
+        </dependency>
         <!-- Cache -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -2,7 +2,7 @@ package com.muhammedtopgul.beerservice.mapper;
 
 import com.muhammedtopgul.application.common.dto.BeerDto;
 import com.muhammedtopgul.beerservice.entity.BeerEntity;
-import com.muhammedtopgul.beerservice.service.external.InventoryService;
+import com.muhammedtopgul.beerservice.service.external.inventory.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

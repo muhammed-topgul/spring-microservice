@@ -1,6 +1,7 @@
-package com.muhammedtopgul.beerservice.service.external;
+package com.muhammedtopgul.beerservice.service.external.inventory.feign;
 
 import com.muhammedtopgul.application.common.dto.InventoryDto;
+import com.muhammedtopgul.beerservice.service.external.inventory.InventoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;

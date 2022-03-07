@@ -1,4 +1,4 @@
-package com.muhammedtopgul.beerservice.service.external;
+package com.muhammedtopgul.beerservice.service.external.inventory;
 
 import java.util.UUID;
 
