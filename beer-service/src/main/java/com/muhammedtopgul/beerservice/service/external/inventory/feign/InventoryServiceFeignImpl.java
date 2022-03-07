@@ -18,7 +18,7 @@ import java.util.UUID;
  */
 
 @Service
-@Profile("eureka-local-discovery")
+@Profile("local-discovery")
 @RequiredArgsConstructor
 @Slf4j
 public class InventoryServiceFeignImpl implements InventoryService {

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Profile;
  */
 
 @Configuration
-@Profile("!eureka-local-discovery")
+@Profile("!local-discovery")
 public class LocalHostRouteConfig {
 
     @Bean

@@ -23,7 +23,7 @@ import java.util.UUID;
  */
 
 @Service
-@Profile("!eureka-local-discovery")
+@Profile("!local-discovery")
 @ConfigurationProperties(prefix = "external.service", ignoreUnknownFields = false)
 @Setter
 @RequiredArgsConstructor

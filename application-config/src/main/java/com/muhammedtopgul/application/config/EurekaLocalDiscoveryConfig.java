@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
  * @since 06.03.2022 01:02
  */
 
-@Profile("eureka-local-discovery")
+@Profile("local-discovery")
 @Configuration
 @EnableDiscoveryClient
 public class EurekaLocalDiscoveryConfig {
