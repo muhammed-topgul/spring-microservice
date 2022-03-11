@@ -18,6 +18,7 @@
 
     <properties>
         <resilience4j.version>1.0.2.RELEASE</resilience4j.version>
+        <zipkin.version>2.2.8.RELEASE</zipkin.version>
     </properties>
 
     <dependencies>
@@ -29,7 +30,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zipkin</artifactId>
-            <version>2.2.8.RELEASE</version>
+            <version>${zipkin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>7.0.1</version>
         </dependency>
         <!-- Cache -->
         <dependency>
